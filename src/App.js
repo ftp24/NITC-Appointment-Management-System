@@ -1,9 +1,15 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
 import './App.css';
-import AdminMain from "./components/AdminMain";
+
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
+
+import AddAppointment from "./components/student/AddAppointment"
+
+import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
+
+import AdminMain from "./components/AdminMain";
 
 const AppWrapper = () => {
   return (
@@ -62,9 +68,10 @@ function App() {
 
 
 					{/* Faculty Routes */}
-						{/* <Route exact path="/customer-history"><CustomerHistory/></Route> */}
+						<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
 
 					{/* Student Routes */}
+					<Route exact path="/student-add"><AddAppointment/></Route>
 					{/* Admin Routes */}
 					<Route exact path="/home/admin" >
 						
