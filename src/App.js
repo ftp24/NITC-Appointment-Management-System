@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
+import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
@@ -12,6 +12,7 @@ import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
 import AdminMain from "./components/AdminMain";
 import AdminNoteView from "./components/Admin/AdminNoteView";
 import FacultyNoteView from "./components/faculty/FacultyNoteView";
+import UserSearch from "./components/admin/UserSearch";
 
 const AppWrapper = () => {
   return (
@@ -88,6 +89,8 @@ function App() {
 					<Route exact path="/admin/noteview" >
 						<AdminNoteView></AdminNoteView>
 					</Route>
+					<Route exact path="/accounts"><UserSearch/></Route>
+
 
 					{/* <Route path="*"><Error404/></Route> */}
 

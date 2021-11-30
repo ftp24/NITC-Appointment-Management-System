@@ -2,7 +2,7 @@ const AccountCard = ({account}) => {
     return (
         <div className = 'task'>
             <h3 style={HeadingStyle}>{account.name}</h3>
-            <p>{account.Department}</p>
+            <p>{account.department}</p>
         </div>
     )
 }

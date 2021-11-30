@@ -29,7 +29,7 @@ function FacultyScheduleDay() {
 											<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
 									</div>
 									<div className="col-4 offset-md-2 ml-3 mt-4">
-										<button type="submit" className="button" onClick={checkDate}>Submit</button>
+										<button type="submit" className="button btn" onClick={checkDate}>Submit</button>
 									</div>
 								</div>
 							</form>
