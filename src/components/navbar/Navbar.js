@@ -1,7 +1,10 @@
 import { Link, useHistory } from "react-router-dom"
+import { useEffect } from "react";
 export default function Navbar({user,setUser}) {
   const history=useHistory();
-
+useEffect(()=>{
+	user=JSON.stringify(window.localStorage.getItem('user'));
+},[])
   function logout(){
     window.localStorage.removeItem('user')
     setUser({});

@@ -3,9 +3,8 @@ import { useState,useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import './Login.css';
 
-const Login= ({user,setUser,loggedIn}) => {
+const Login= ({user,setUser}) => {
 	const history = useHistory();
-    loggedIn();
 	const [showPassWarning, setShowPassWarning] = useState(false);
 	const [showEmailWarning, setShowEmailWarning] = useState(false);
 
@@ -52,7 +51,7 @@ const Login= ({user,setUser,loggedIn}) => {
 		//console.log(data)
 		const data = {
 			'id':1,
-			'type':'faculty',
+			'type':'student',
 			'username':'John Devin'
 		}
 		if (!('message' in data))
@@ -63,11 +62,11 @@ const Login= ({user,setUser,loggedIn}) => {
 			setInvalidEmail(false);
 
 			if(data.type=='admin')
-				history.push('/home/admin')
+				history.push('/admin-appointments')
 			else if(data.type=='faculty')
-				history.push('/home/faculty')
+				history.push('/faculty-appointments')
 			else if(data.type=='student')
-				history.push('/home/student')
+				history.push('/student-appointments')
 			else
 				console.log("Type error")
 		}

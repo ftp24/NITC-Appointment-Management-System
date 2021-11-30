@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 
 import Login from "./components/login/Login";
@@ -19,18 +19,26 @@ import StudentNoteView from "./components/student/StudentNoteView.js";
 import AdminAppointments from "./components/admin/AdminAppointments"
 
 const AppWrapper = () => {
+	const [user,setUser]=useState(JSON.parse(localStorage.getItem('user')));
   return (
     <Router>
-      <App />
+		<Route path="/login" >
+			<Login user={user} setUser={setUser} />
+		</Route>
+      <App user={user} setUser={setUser} />
     </Router>
   )
 }
 
-function App() {
+
+
+function App({user,setUser}) {
   let history=useHistory();
 
-  const [user,setUser]=useState(JSON.parse(localStorage.getItem('user')));
+    useEffect(() => {
+	loggedIn()
 
+	},[])
   function loggedIn()
   {
 	const pathname = window.location.pathname;
@@ -45,15 +53,15 @@ function App() {
 		{
 			if((user.type)=='student')
 			{
-				history.push('/home/student')
+				history.push('/student-appointments')
 			}
 			else if((user.type)=='faculty')
 			{
-				history.push('/home/faculty')
+				history.push('/faculty-appointments')
 			}
 			else if((user.type)=='admin')
 			{
-				history.push('/home/admin')
+				history.push('/admin-appointments')
 			}
 		}
   }
@@ -62,12 +70,13 @@ function App() {
   	history.push('/login');
 	}
   }
+
   return (
     <div className="App">
       <Router>
 		  <Navbar user={user} setUser={setUser}></Navbar>
-				<Switch>
-					<Route exact path="/login" ><Login user={user} setUser={setUser} loggedIn={loggedIn} /></Route>
+				{!!user&&<Switch>
+					
 
 					{/* { <Route exact path="/home">
 					{loggedIn()}
@@ -105,7 +114,7 @@ function App() {
 					{/* <Route path="*"><Error404/></Route> */}
 
 
-				</Switch>
+				</Switch>}
 			</Router>
     </div>
   );
