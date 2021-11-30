@@ -1,0 +1,11 @@
+.loginpic{
+	background-image: url('../../img/Hello.svg');
+	background-size:contain;
+	background-repeat: no-repeat;
+	height: 200px;
+	width: 200px;
+	padding: 200px;
+}
+.header{
+	padding-top: 40px
+}
