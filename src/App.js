@@ -7,12 +7,16 @@ import Navbar from "./components/navbar/Navbar";
 import AddAppointment from "./components/student/AddAppointment"
 import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
 
+import StudentAppointments from "./components/student/StudentAppointments"
 import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
-
+import FacultyAppointments from "./components/faculty/FacultyAppointments"
 import AdminMain from "./components/AdminMain";
-import AdminNoteView from "./components/Admin/AdminNoteView";
+import AdminNoteView from "./components/admin/AdminNoteView";
 import FacultyNoteView from "./components/faculty/FacultyNoteView";
+
 import UserSearch from "./components/admin/UserSearch";
+import StudentNoteView from "./components/student/StudentNoteView.js";
+import AdminAppointments from "./components/admin/AdminAppointments"
 
 const AppWrapper = () => {
   return (
@@ -73,9 +77,14 @@ function App() {
 
 
 					{/* Student Routes */}
+          <Route exact path="/student-appointments" user={user}><StudentAppointments/></Route>
 					<Route exact path="/student-add" user={user}><AddAppointment/></Route>
+					<Route exact path="/student/noteview" >
+						<StudentNoteView></StudentNoteView>
+					</Route>
 
 					{/* Faculty Routes */}
+          <Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
 					<Route exact path="/faculty-reschedule"><RescheduleAppointment/></Route>
 					<Route exact path="/faculty/noteview" >
@@ -83,6 +92,7 @@ function App() {
 					</Route>
 
 					{/* Admin Routes */}
+          			<Route exact path="/admin-appointments"><AdminAppointments/></Route>
 					<Route exact path="/home/admin" >
 						<AdminMain user={user} setUser={setUser} loggedIn={loggedIn} />
 					</Route>
@@ -101,4 +111,4 @@ function App() {
   );
 }
 
-export default AppWrapper;
+export default AppWrapper

@@ -25,7 +25,7 @@ const Login= ({user,setUser,loggedIn}) => {
 		setShowPassWarning(false)
 	};
 
-	
+
 
 	function onClick(event){
 		event.preventDefault()
@@ -52,7 +52,7 @@ const Login= ({user,setUser,loggedIn}) => {
 		//console.log(data)
 		const data = {
 			'id':1,
-			'type':'admin',
+			'type':'faculty',
 			'username':'John Devin'
 		}
 		if (!('message' in data))

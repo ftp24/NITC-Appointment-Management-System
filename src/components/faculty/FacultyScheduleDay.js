@@ -5,10 +5,7 @@ import './faculty.css'
 
 function FacultyScheduleDay() {
 
-	const [apps,setApps]=useState([{
-		text: "",
-		date: ""
-	}]);
+	const [apps,setApps]=useState([]);
 	function checkDate(e)
 	{
 		e.preventDefault();
@@ -39,9 +36,10 @@ function FacultyScheduleDay() {
 			</div>
 			<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-					{apps.map((data)=>(
+					{(apps.length>0)&&apps.map((data)=>(
 	 			   <FacultyCard task={data}/>
 	 		   	))}
+					{(apps.length==0)&&<p style={{'text-align':'center'}}>No Appointments Scheduled on this day.</p>}
 				</div>
 			</div>
 	    </div>

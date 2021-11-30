@@ -23,24 +23,45 @@ export default function Navbar({user,setUser}) {
   }
   {
 		!!user&&
-      <div onClick={buha} className="nav-link text-light" style={{'cursor' : 'default', 'padding-right':'30px'}}>Hi, {user["username"]}</div>
+      <div onClick={buha} className="nav-link text-light" style={{'cursor' : 'default', 'paddingRight':'30px'}}>Hi, {user["username"]}</div>
 	 }
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>
   </button>
   <div className="collapse navbar-collapse" id="navbarSupportedContent">
 
-	{!!user&&
-	<ul className="navbar-nav mr-auto">
-	  <li className="nav-item">
-		  	<Link className="nav-link" to="/home">Home</Link>
-      </li>
-      <li className="nav-item">
-        <Link className="nav-link" to="/accounts">Manage Accounts</Link>
-      </li>
+	{!!user&&(user.type=="student")&&
+		<ul className="navbar-nav mr-auto">
+		  <li className="nav-item">
+			  	<Link className="nav-link" to="/student-appointments">Home</Link>
+	      </li>
+	      <li className="nav-item">
+	        <Link className="nav-link" to="/student-add">Add Appointment</Link>
+	      </li>
+	    </ul>
+	}
 
-    </ul>
-}
+	{!!user&&(user.type=="faculty")&&
+		<ul className="navbar-nav mr-auto">
+		  <li className="nav-item">
+			  	<Link className="nav-link" to="/faculty-appointments">Home</Link>
+	      </li>
+	      <li className="nav-item">
+	        <Link className="nav-link" to="/faculty-schedule-day">View Schedule</Link>
+	      </li>
+	    </ul>
+	}
+
+	{!!user&&(user.type=="admin")&&
+		<ul className="navbar-nav mr-auto">
+		  <li className="nav-item">
+			  	<Link className="nav-link" to="/admin-appointments">Home</Link>
+	      </li>
+	      <li className="nav-item">
+	        <Link className="nav-link" to="/accounts">Manage accounts</Link>
+	      </li>
+	    </ul>
+	}
     <ul className="navbar-nav">
 	{
 		!user&&
