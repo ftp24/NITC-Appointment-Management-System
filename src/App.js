@@ -1,6 +1,5 @@
 import { useState } from "react";
 import { BrowserRouter as Router, Route, Switch, useHistory} from "react-router-dom";
-import './App.css';
 
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
@@ -10,6 +9,8 @@ import AddAppointment from "./components/student/AddAppointment"
 import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
 
 import AdminMain from "./components/AdminMain";
+import AdminNoteView from "./components/Admin/AdminNoteView";
+import FacultyNoteView from "./components/faculty/FacultyNoteView";
 
 const AppWrapper = () => {
   return (
@@ -67,17 +68,27 @@ function App() {
 					</Route> } */}
 
 
-					{/* Faculty Routes */}
-						<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+					
 
 					{/* Student Routes */}
-					<Route exact path="/student-add"><AddAppointment/></Route>
+					<Route exact path="/student-add" user={user}><AddAppointment/></Route>
+
+					{/* Faculty Routes */}
+					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+					<Route exact path="/faculty/noteview" >
+						<FacultyNoteView></FacultyNoteView>
+					</Route>
+
 					{/* Admin Routes */}
-					<Route exact path="/home/admin" >
-						
+					<Route exact path="/home/admin" >						
 						<AdminMain user={user} setUser={setUser} loggedIn={loggedIn} />
 					</Route>
+					<Route exact path="/admin/noteview" >
+						<AdminNoteView></AdminNoteView>
+					</Route>
+
 					{/* <Route path="*"><Error404/></Route> */}
+					
 
 				</Switch>
 			</Router>

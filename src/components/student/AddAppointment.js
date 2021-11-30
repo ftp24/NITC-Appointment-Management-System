@@ -1,6 +1,6 @@
 import React from 'react'
 
-function AddAppointment() {
+function AddAppointment({user}) {
 	const options = [
 		{
 			label: "Apple",
@@ -29,6 +29,7 @@ function AddAppointment() {
 			Faculty:(document.getElementById('inputFaculty')).value,
 			Date:(document.getElementById('inputDate')).value,
 			Time:(document.getElementById('inputTime')).value,
+			Student:(user.username).value
 		};
 		console.log(appointment);
 
@@ -64,11 +65,11 @@ function AddAppointment() {
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
 											<label for="inputDate">Date</label>
-											<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
+											<input type="date" className="form-control mb-4" id="inputDate" name="inputDate" placeholder="Enter Date"/>
 										</div>
 										<div className="col-6">
 										<label for="inputTime">Time</label>
-										<input type="time" className="form-control mb-1" id="inputTime" placeholder="Enter Time"/>
+										<input type="time" className="form-control mb-1" id="inputTime" name="inputTime" placeholder="Enter Time"/>
 										</div>
 									</div>
 								</div>
