@@ -3,11 +3,10 @@ import { BrowserRouter as Router, Route, Switch, useHistory} from "react-router-
 
 import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
-
 import AddAppointment from "./components/student/AddAppointment"
-
+import StudentAppointments from "./components/student/StudentAppointments"
 import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
-
+import FacultyAppointments from "./components/faculty/FacultyAppointments"
 import AdminMain from "./components/AdminMain";
 import AdminNoteView from "./components/admin/AdminNoteView";
 import FacultyNoteView from "./components/faculty/FacultyNoteView";
@@ -72,9 +71,11 @@ function App() {
 					
 
 					{/* Student Routes */}
+          <Route exact path="/student-appointments" user={user}><StudentAppointments/></Route>
 					<Route exact path="/student-add" user={user}><AddAppointment/></Route>
 
 					{/* Faculty Routes */}
+          <Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
 					<Route exact path="/faculty/noteview" >
 						<FacultyNoteView></FacultyNoteView>
@@ -98,4 +99,4 @@ function App() {
   );
 }
 
-export default AppWrapper;
+export default AppWrapper
