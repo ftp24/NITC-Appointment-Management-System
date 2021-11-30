@@ -11,6 +11,7 @@ import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
 import AdminMain from "./components/AdminMain";
 import AdminNoteView from "./components/Admin/AdminNoteView";
 import FacultyNoteView from "./components/faculty/FacultyNoteView";
+import StudentNoteView from "./components/student/StudentNoteView.js";
 
 const AppWrapper = () => {
   return (
@@ -72,6 +73,9 @@ function App() {
 
 					{/* Student Routes */}
 					<Route exact path="/student-add" user={user}><AddAppointment/></Route>
+					<Route exact path="/student/noteview" >
+						<StudentNoteView></StudentNoteView>
+					</Route>
 
 					{/* Faculty Routes */}
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>

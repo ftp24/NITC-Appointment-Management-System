@@ -23,7 +23,7 @@ export default function Navbar({user,setUser}) {
   }
   {
 		!!user&&
-      <div onClick={buha} className="nav-link text-light" style={{'cursor' : 'default', 'padding-right':'30px'}}>Hi, {user["username"]}</div>
+      <div onClick={buha} className="nav-link text-light" style={{'cursor' : 'default', 'paddingRight':'30px'}}>Hi, {user["username"]}</div>
 	 }
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>

@@ -1,7 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
 
-export default function FacultyNoteView() {
+export default function StudentNoteView() {
+
     let appointment={
         Title:"Request to marry your daughter",
         Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
@@ -11,7 +11,6 @@ export default function FacultyNoteView() {
         Student:"Joseph Mani Jacob Mani",
         Status:"Pending"
     };
-
     function approve()
     {
         console.log("approved");
@@ -24,7 +23,12 @@ export default function FacultyNoteView() {
 
     function cancel()
     {
-        console.log("cancelled");
+        if(appointment.Status=="Pending"){
+            console.log("Deleted appt");
+        }
+        else if(appointment.Status=="Approved"){
+            console.log("Cancelled")
+        }
     }
 
     return (
@@ -43,8 +47,8 @@ export default function FacultyNoteView() {
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
-											<label for="outputFaculty">Student</label>
-										<input className="form-control  mb-4" id="outputStudent" name="outputStudent" value={appointment.Student} readOnly/>
+											<label for="outputFaculty">Faculty</label>
+										<input className="form-control  mb-4" id="outputFaculty" name="outputFaculty" value={appointment.Faculty} readOnly/>
 										</div>
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
@@ -65,22 +69,17 @@ export default function FacultyNoteView() {
                                     </div>
                                     <div className="row mt-3 ml-0 mr-2">
 									<div className="d-flex justify-content-center col-12">
-                                    {(appointment.Status=="Pending")&&
-                                    <Link to="/reschedule" class="btn button col-3 mr-4">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;Reschedule
-                                    </Link>
-                                    }
-                                    {(appointment.Status=="Pending")&&
+                                    {(appointment.Status=="Rescheduled")&&
                                     <div onClick={approve} class="btn btn-success col-3 mr-4">
                                         <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve
                                     </div>
                                     }
-                                    {(appointment.Status=="Pending")&&
+                                    {(appointment.Status=="Rescheduled")&&
                                     <div onClick={reject} class="btn btn-danger col-3 mr-4">
                                         <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Reject
                                     </div>
                                     }
-                                    {(appointment.Status=="Approved")&&
+                                    {((appointment.Status=="Pending")||(appointment.Status=="Approved"))&&
                                     <div onClick={cancel} class="btn btn-danger col-3 mr-4">
                                         <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel
                                     </div>
