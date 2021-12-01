@@ -17,6 +17,7 @@ import FacultyNoteView from "./components/faculty/FacultyNoteView";
 import UserSearch from "./components/admin/UserSearch";
 import StudentNoteView from "./components/student/StudentNoteView.js";
 import AdminAppointments from "./components/admin/AdminAppointments"
+import CreateAccount from "./components/admin/CreateAccount"
 
 const AppWrapper = () => {
 	return (
@@ -62,38 +63,29 @@ function App() {
 		<div className="App">
 			<Navbar user={user} setUser={setUser}></Navbar>
 			<Switch>
-				<Route path="/login" >
-					<Login user={user} setUser={setUser}/>
-				</Route>
+				<Route path="/login" ><Login user={user} setUser={setUser}/></Route>
 
 				{/* { <Route exact path="/home">
 					{loggedIn()}
 					</Route> } */}
 
-					{/* Student Routes */}
-					<Route exact path="/student-appointments" ><StudentAppointments/></Route>
-					<Route exact path="/student-add" ><AddAppointment user={user}/></Route>
-					<Route exact path="/student/apptview/:id" >
-						<StudentNoteView></StudentNoteView>
-					</Route>
+				{/* Student Routes */}
+				<Route exact path="/student-appointments" ><StudentAppointments/></Route>
+				<Route exact path="/student-add" ><AddAppointment user={user}/></Route>
+				<Route exact path="/student/apptview/:id" ><StudentNoteView></StudentNoteView></Route>
 
-					{/* Faculty Routes */}
-					<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
-					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
-					<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
-					<Route exact path="/faculty/apptview/:id" >
-						<FacultyNoteView></FacultyNoteView>
-					</Route>
+				{/* Faculty Routes */}
+				<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
+				<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+				<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
+				<Route exact path="/faculty/apptview/:id" ><FacultyNoteView></FacultyNoteView></Route>
 
-					{/* Admin Routes */}
-					<Route exact path="/admin-appointments"><AdminAppointments/></Route>
-					<Route exact path="/home/admin" >
-						<AdminMain/>
-					</Route>
-					<Route exact path="/admin/apptview/:id" >
-						<AdminNoteView></AdminNoteView>
-					</Route>
-					<Route exact path="/accounts"><UserSearch/></Route>
+				{/* Admin Routes */}
+				<Route exact path="/admin-appointments"><AdminAppointments/></Route>
+				<Route exact path="/admin/apptview/:id" ><AdminNoteView></AdminNoteView></Route>
+				<Route exact path="/accounts"><UserSearch/></Route>
+				<Route exact path="/create-account"><CreateAccount/></Route>
+
 
 
 					{/* <Route path="*"><Error404/></Route> */}

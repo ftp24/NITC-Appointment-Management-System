@@ -72,7 +72,10 @@ useEffect(()=>{
 			  	<Link className="nav-link" to="/admin-appointments">Home</Link>
 	      </li>
 	      <li className="nav-item">
-	        <Link className="nav-link" to="/accounts">Manage accounts</Link>
+	        <Link className="nav-link" to="/accounts">Delete Account</Link>
+	      </li>
+		  <li className="nav-item">
+	        <Link className="nav-link" to="/create-account">Create Account</Link>
 	      </li>
 	    </ul>
 	}
