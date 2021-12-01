@@ -9,6 +9,7 @@ import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
 
 import StudentAppointments from "./components/student/StudentAppointments"
 import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
+import FacultyScheduleMonth from "./components/faculty/FacultyScheduleMonth.js"
 import FacultyAppointments from "./components/faculty/FacultyAppointments"
 import AdminMain from "./components/AdminMain";
 import AdminNoteView from "./components/admin/AdminNoteView";
@@ -84,6 +85,7 @@ function App() {
 					{/* Faculty Routes */}
 					<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+					<Route exact path="/faculty-schedule-month"><FacultyScheduleMonth/></Route>
 					<Route exact path="/faculty-reschedule"><RescheduleAppointment/></Route>
 					<Route exact path="/faculty/noteview" >
 						<FacultyNoteView></FacultyNoteView>

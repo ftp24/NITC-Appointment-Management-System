@@ -51,7 +51,7 @@ const Login= ({user,setUser}) => {
 		//console.log(data)
 		const data = {
 			'id':1,
-			'type':'student',
+			'type':'faculty',
 			'username':'John Devin'
 		}
 		if (!('message' in data))
