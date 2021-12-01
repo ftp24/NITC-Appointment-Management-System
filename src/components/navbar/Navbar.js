@@ -61,7 +61,10 @@ useEffect(()=>{
 			  	<Link className="nav-link" to="/faculty-appointments">Home</Link>
 	      </li>
 	      <li className="nav-item">
-	        <Link className="nav-link" to="/faculty-schedule-day">View Schedule</Link>
+	        <Link className="nav-link" to="/faculty-schedule-day">Daily Schedule</Link>
+	      </li>
+	      <li className="nav-item">
+	        <Link className="nav-link" to="/faculty-schedule-month">Monthly Schedule</Link>
 	      </li>
 	    </ul>
 	}

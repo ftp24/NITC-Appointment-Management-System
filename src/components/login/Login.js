@@ -51,7 +51,7 @@ const Login= ({user,setUser}) => {
 		//console.log(data)
 		const data = {
 			'id':1,
-			'type':'student',
+			'type':'faculty',
 			'username':'John Devin'
 		}
 		if (!('message' in data))
@@ -100,7 +100,7 @@ const Login= ({user,setUser}) => {
 			                    	{(valueEmail===''&&showEmailWarning)&& <div className="alert alert-danger" role="alert">
 									<span className="fa fa-exclamation-triangle fa-lg mr-2" style={{'color':'red'}}>
 									</span>
-		  							'Please enter a valid password.'
+		  							'Please enter a valid email.'
 								</div>}
 								</div>
 			                    <div className="col-12 form-group">
@@ -126,7 +126,7 @@ const Login= ({user,setUser}) => {
 									</span>
 		  							 Incorrect Password!
 								</div>}
-						  	<button type="submit" onClick={onClick} className="btn btn-info col-8 mt-3 btn-sm">Sign in</button>
+						  	<button type="submit" onClick={onClick} className="button btn btn-info col-8 mt-3 btn-sm">Sign in</button>
 							</div>
 		            	</form>
 					</div>

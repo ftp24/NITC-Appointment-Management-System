@@ -1,23 +1,23 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 
-import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
-
-import AddAppointment from "./components/student/AddAppointment"
-import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
+import Login from "./components/login/Login";
 
 import StudentAppointments from "./components/student/StudentAppointments"
-import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
-import FacultyAppointments from "./components/faculty/FacultyAppointments"
-import AdminMain from "./components/AdminMain";
-import AdminNoteView from "./components/admin/AdminNoteView";
-import FacultyNoteView from "./components/faculty/FacultyNoteView";
-
-import UserSearch from "./components/admin/UserSearch";
 import StudentNoteView from "./components/student/StudentNoteView.js";
+import AddAppointment from "./components/student/AddAppointment"
+
+import FacultyAppointments from "./components/faculty/FacultyAppointments"
+import FacultyNoteView from "./components/faculty/FacultyNoteView";
+import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
+import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
+import FacultyScheduleMonth from "./components/faculty/FacultyScheduleMonth.js"
+
 import AdminAppointments from "./components/admin/AdminAppointments"
 import CreateAccount from "./components/admin/CreateAccount"
+import AdminNoteView from "./components/admin/AdminNoteView";
+import UserSearch from "./components/admin/UserSearch";
 
 const AppWrapper = () => {
 	return (
@@ -77,6 +77,7 @@ function App() {
 				{/* Faculty Routes */}
 				<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 				<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+				<Route exact path="/faculty-schedule-month"><FacultyScheduleMonth/></Route>
 				<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
 				<Route exact path="/faculty/apptview/:id" ><FacultyNoteView></FacultyNoteView></Route>
 
