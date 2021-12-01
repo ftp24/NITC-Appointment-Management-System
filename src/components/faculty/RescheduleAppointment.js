@@ -1,34 +1,19 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
+import { useParams } from "react-router-dom";
 
 function RescheduleAppointment() {
+	let  {id}  = useParams();
+
 	const [prefilled,setPrefilled]=useState(
 	{
-		Title:"hm",
-		Description:"hm",
-		Faculty:"mango",
-		Date:"2022-11-01",
-		Time:"15:31",
+		title:"hm", //assumed to get from the API
+		description:"hm",
+		fac_name:"mango",
+		date:"2022-11-01",
+		time:"15:31",
 	});
 
-	const options = [
-		{
-			label: "Apple",
-			value: "apple",
-		},
-		{
-			label: "Mango",
-			value: "mango",
-		},
-		{
-			label: "Banana",
-			value: "banana",
-		},
-		{
-			label: "Pineapple",
-			value: "pineapple",
-		},
-	];
 
 	function addSubmit(e)
 	{
@@ -57,33 +42,41 @@ function RescheduleAppointment() {
 									<div className="row">
 										<div className="col-12">
 											<label for="inputTitle">Title</label>
-											<input readonly type="text" className="form-control mb-4" id="inputTitle" value={prefilled.Title} placeholder="Enter Title"/>
+											<input readonly type="text" className="form-control mb-4" id="inputTitle" value={prefilled.title} placeholder="Enter Title"/>
 											<label for="inputDescription">Description</label>
-											<textarea readonly rows="3" cols="10" className="form-control mb-4" id="inputDescription" value={prefilled.Description} placeholder="Enter Description"/>
+											<textarea readonly rows="3" cols="10" className="form-control mb-4" id="inputDescription" value={prefilled.description} placeholder="Enter Description"/>
 										</div>
 									</div>
 									<div className="row">
 										<div className="col-12">
 											<label for="inputFaculty">Faculty</label>
-											<input readonly className="form-control ml-3" id="inputFaculty" value={prefilled.Faculty} name="inputFaculty"/>
+											<input readonly className="form-control ml-3" id="inputFaculty" value={prefilled.fac_name} name="inputFaculty"/>
 										</div>
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
-											<label for="inputDate">Date</label>
-											<input type="date" className="form-control mb-4" id="inputDate" value={prefilled.Date} placeholder="Enter Date"/>
+											<label for="oldDate">Previous Date</label>
+											<input type="date" className="form-control mb-4" id="oldDate" value={prefilled.date} placeholder="Enter Date"/>
 										</div>
 										<div className="col-6">
-										<label for="inputTime">Time</label>
-										<input type="time" className="form-control mb-1" id="inputTime" value={prefilled.Time} placeholder="Enter Time"/>
+											<label for="inputDate">New Date</label>
+											<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
+										</div>
+										<div className="col-6">
+											<label for="oldTime">Previous Time</label>
+											<input type="time" className="form-control mb-1" id="oldTime" value={prefilled.time} placeholder="Enter Time"/>
+										</div>
+										<div className="col-6">
+											<label for="inputTime">New Time</label>
+											<input type="time" className="form-control mb-1" id="inputTime" placeholder="Enter Time"/>
 										</div>
 									</div>
 									<label for="inputMessage">Message</label>
-									<textarea readonly rows="3" cols="10" className="form-control mb-4" id="inputMessage" placeholder="Enter Message"/>
+									<textarea rows="3" cols="10" className="form-control mb-4" id="inputMessage" placeholder="Enter Message"/>
 
 								</div>
 								<div className="col-4">
-									<button type="submit" className="btn mt-2" onClick={addSubmit}>Book</button>
+									<button type="submit" className="button btn mt-2" onClick={addSubmit}>Book</button>
 								</div>
 							</div>
 						</form>

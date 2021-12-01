@@ -1,9 +1,12 @@
-const Task = ({ task }) => {
+import { useHistory } from "react-router-dom";
+
+const Task = ({task}) => {
+
     return (
-        <div className = {`task ${task.reminder ? 'reminder' : 'reminder'}`}>
-            <h3 style={HeadingStyle}>{task.text}</h3>
-            <p>{task.day}</p>
-            <p>{task.student}</p>
+        <div className= {`task ${task.reminder ? 'reminder' : 'reminder'}`}>
+            <h3 style={HeadingStyle}>Appointment with {task.fac_name}</h3>
+            <p>On {task.date}</p>
+            <p>From {task.stu_name}</p>
         </div>
     )
 }

@@ -87,7 +87,7 @@ const Login= ({user,setUser}) => {
 	}
 
     return (
-			<div className="container mt-5">
+			<div className="container container_box mt-5">
 				<h2 className="header">Login</h2>
 				<div className="row">
 					<div className="col-6">

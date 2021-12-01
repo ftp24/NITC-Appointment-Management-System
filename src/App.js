@@ -30,14 +30,10 @@ const AppWrapper = () => {
 
 function App() {
 
-	const [user, setUser] = useState()
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 	let history=useHistory();
 	const pathname = window.location.pathname;
 
-	useEffect(() => {
-		setUser(JSON.parse(localStorage.getItem('user')));
-
-	}, [])
 
 	if(!!user) //if user is present
 	{
@@ -64,8 +60,8 @@ function App() {
 
 	return (
 		<div className="App">
-		<Navbar user={user} setUser={setUser}></Navbar>
-		<Switch>
+			<Navbar user={user} setUser={setUser}></Navbar>
+			<Switch>
 				<Route path="/login" >
 					<Login user={user} setUser={setUser}/>
 				</Route>
@@ -76,16 +72,16 @@ function App() {
 
 					{/* Student Routes */}
 					<Route exact path="/student-appointments" ><StudentAppointments/></Route>
-					<Route exact path="/student-add" ><AddAppointment/></Route>
-					<Route exact path="/student/noteview" >
+					<Route exact path="/student-add" ><AddAppointment user={user}/></Route>
+					<Route exact path="/student/apptview/:id" >
 						<StudentNoteView></StudentNoteView>
 					</Route>
 
 					{/* Faculty Routes */}
 					<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
-					<Route exact path="/faculty-reschedule"><RescheduleAppointment/></Route>
-					<Route exact path="/faculty/noteview" >
+					<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
+					<Route exact path="/faculty/apptview/:id" >
 						<FacultyNoteView></FacultyNoteView>
 					</Route>
 
@@ -94,15 +90,15 @@ function App() {
 					<Route exact path="/home/admin" >
 						<AdminMain/>
 					</Route>
-					<Route exact path="/admin/noteview" >
+					<Route exact path="/admin/apptview/:id" >
 						<AdminNoteView></AdminNoteView>
 					</Route>
 					<Route exact path="/accounts"><UserSearch/></Route>
 
 
 					{/* <Route path="*"><Error404/></Route> */}
-			</Switch>
-		</div>
+				</Switch>
+			</div>
 		);
 	}
 

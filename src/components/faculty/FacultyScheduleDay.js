@@ -1,45 +1,43 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
-import FacultyCard from './FacultyCard'
+import { Link } from "react-router-dom"
+import Task from './Task'
 import './faculty.css'
+
 
 function FacultyScheduleDay() {
 
-	const [apps,setApps]=useState([]);
+	const [tasks, setTasks] = useState([])
+
 	function checkDate(e)
 	{
 		e.preventDefault();
-		setApps([{text:"hello",date:((document.getElementById('inputDate')).value)}]);
+		setTasks([{id:5, title:"hello",date:((document.getElementById('inputDate')).value),status:"Pending"}]);
 	}
 
     return (
-        <div className="container">
+        <div className="container container_box">
 			<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-					<div className="card">
-						<div className="card-body">
-							<h5 className="card-title">Schedule for the Day</h5>
-							<form>
-								<div className="form-group row">
-									<div className="col-6">
-											<label for="inputDate">Date</label>
-											<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
-									</div>
-									<div className="col-4 offset-md-2 ml-3 mt-4">
-										<button type="submit" className="button btn" onClick={checkDate}>Submit</button>
-									</div>
-								</div>
-							</form>
+					<h2 className="card-title">Schedule for the Day</h2>
+					<form>
+						<div className="form-group row">
+							<div className="col-6">
+									<label for="inputDate">Date</label>
+									<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
+							</div>
+							<div className="col-4 offset-md-2 ml-3 mt-4">
+								<button type="submit" className="button btn" onClick={checkDate}>Submit</button>
+							</div>
 						</div>
-					</div>
+					</form>
 				</div>
 			</div>
 			<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-					{(apps.length>0)&&apps.map((data)=>(
-	 			   <FacultyCard task={data}/>
-	 		   	))}
-					{(apps.length==0)&&<p style={{'text-align':'center'}}>No Appointments Scheduled on this day.</p>}
+					{(tasks.length>0)&&tasks.map((task)=>(<div>{task.status=="Approved"&&
+	 			  <Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.id}><Task key={task.id} task={task}/> </Link>}</div>))}
+					{(tasks.length==0)&&<h4 style={{'text-align':'center'}}>No Appointments Scheduled on this day.</h4>}
 				</div>
 			</div>
 	    </div>
