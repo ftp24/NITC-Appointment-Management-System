@@ -1,23 +1,22 @@
 import { useState, useEffect } from "react";
 import { BrowserRouter as Router, Route, Switch, useHistory } from "react-router-dom";
 
-import Login from "./components/login/Login";
 import Navbar from "./components/navbar/Navbar";
-
-import AddAppointment from "./components/student/AddAppointment"
-import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
+import Login from "./components/login/Login";
 
 import StudentAppointments from "./components/student/StudentAppointments"
+import StudentNoteView from "./components/student/StudentNoteView.js";
+import AddAppointment from "./components/student/AddAppointment"
+
+import FacultyAppointments from "./components/faculty/FacultyAppointments"
+import FacultyNoteView from "./components/faculty/FacultyNoteView";
+import RescheduleAppointment from "./components/faculty/RescheduleAppointment"
 import FacultyScheduleDay from "./components/faculty/FacultyScheduleDay"
 import FacultyScheduleMonth from "./components/faculty/FacultyScheduleMonth.js"
-import FacultyAppointments from "./components/faculty/FacultyAppointments"
-import AdminMain from "./components/AdminMain";
-import AdminNoteView from "./components/admin/AdminNoteView";
-import FacultyNoteView from "./components/faculty/FacultyNoteView";
 
-import UserSearch from "./components/admin/UserSearch";
-import StudentNoteView from "./components/student/StudentNoteView.js";
 import AdminAppointments from "./components/admin/AdminAppointments"
+import AdminNoteView from "./components/admin/AdminNoteView";
+import UserSearch from "./components/admin/UserSearch";
 
 const AppWrapper = () => {
 	return (
@@ -31,14 +30,10 @@ const AppWrapper = () => {
 
 function App() {
 
-	const [user, setUser] = useState()
+	const [user, setUser] = useState(JSON.parse(localStorage.getItem('user')))
 	let history=useHistory();
 	const pathname = window.location.pathname;
 
-	useEffect(() => {
-		setUser(JSON.parse(localStorage.getItem('user')));
-
-	}, [])
 
 	if(!!user) //if user is present
 	{
@@ -65,8 +60,8 @@ function App() {
 
 	return (
 		<div className="App">
-		<Navbar user={user} setUser={setUser}></Navbar>
-		<Switch>
+			<Navbar user={user} setUser={setUser}></Navbar>
+			<Switch>
 				<Route path="/login" >
 					<Login user={user} setUser={setUser}/>
 				</Route>
@@ -77,34 +72,32 @@ function App() {
 
 					{/* Student Routes */}
 					<Route exact path="/student-appointments" ><StudentAppointments/></Route>
-					<Route exact path="/student-add" ><AddAppointment/></Route>
-					<Route exact path="/student/noteview" >
+					<Route exact path="/student-add" ><AddAppointment user={user}/></Route>
+					<Route exact path="/student/apptview/:id" >
 						<StudentNoteView></StudentNoteView>
 					</Route>
 
 					{/* Faculty Routes */}
 					<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
+					
 					<Route exact path="/faculty-schedule-month"><FacultyScheduleMonth/></Route>
-					<Route exact path="/faculty-reschedule"><RescheduleAppointment/></Route>
-					<Route exact path="/faculty/noteview" >
+					<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
+					<Route exact path="/faculty/apptview/:id" >
 						<FacultyNoteView></FacultyNoteView>
 					</Route>
 
 					{/* Admin Routes */}
 					<Route exact path="/admin-appointments"><AdminAppointments/></Route>
-					<Route exact path="/home/admin" >
-						<AdminMain/>
-					</Route>
-					<Route exact path="/admin/noteview" >
+					<Route exact path="/admin/apptview/:id" >
 						<AdminNoteView></AdminNoteView>
 					</Route>
 					<Route exact path="/accounts"><UserSearch/></Route>
 
 
 					{/* <Route path="*"><Error404/></Route> */}
-			</Switch>
-		</div>
+				</Switch>
+			</div>
 		);
 	}
 

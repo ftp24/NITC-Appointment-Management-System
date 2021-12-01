@@ -1,20 +1,22 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
-import FacultyCard from './FacultyCard'
 import './faculty.css'
-import AdminNoteView from '../admin/AdminNoteView';
 
 function FacultyScheduleMonth() {
 
 	const [apps,setApps]=useState([[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[]]]);
-	let j=10000;
+	const [month,setMonth]=useState()
 	function shorten(str)
 	{
 		return str.slice(0,8);
 	}
+	useEffect(()=>{
+		console.log(month)
+	},[month])
 	function checkMonth(e)
 	{
 		e.preventDefault();
+		setMonth(document.getElementById('monthInput').value)
 		let ans=[[[],[],[],[],[],[],[]],[[],[],[{
 			AppointmentID:1,
 			Title:"Request to marry your daughter",
@@ -47,7 +49,6 @@ function FacultyScheduleMonth() {
 			Status:"Pending"
 		}],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[]]];
 		setApps(ans);
-		console.log("buha");
 		ans.map(week=>(week.map(day=>(day.map(appt=>console.log(appt))))))
 	}
 
@@ -62,7 +63,7 @@ function FacultyScheduleMonth() {
 								<div className="form-group row">
 									<div className="col-6">
 										<label htmlFor="months">Choose Month:</label>&nbsp;&nbsp;
-										<input list="months" name="month" id="month"/>
+										<input list="months" name="monthInput" id="monthInput"/>
 										<datalist id="months">
 											<option value="January"/>
 											<option value="February"/>
@@ -80,46 +81,31 @@ function FacultyScheduleMonth() {
 					</div>
 				</div>
 			</div>
-			<div className="row align-items-center justify-content-md-center">
+
+			{!!month&&<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-				<table className="table caption-top">
-  <caption>Month of NNN</caption>
-  <thead>
-    <tr>
-      <th scope="col">M</th>
-      <th scope="col">T</th>
-      <th scope="col">W</th>
-      <th scope="col">T</th>
-      <th scope="col">F</th>
-      <th scope="col">S</th>
-      <th scope="col">S</th>
-    </tr>
-  </thead>
-  <tbody>
-   {apps.map((week,weekno)=>(<tr className="row" key={weekno}>{week.map((day,dayno)=>(<td className="cell"><div key={dayno} className="d-flex col-md-2 flex-column">{day.length>0&&day.map(appt=>(<div className="p-2">{shorten(appt.Title)}</div>))}</div></td>))}</tr>))}
-	</tbody>
-</table>
-			<div className="row align-items-center justify-content-md-center">
-				<div className="col-10 mt-5">
-<table class="table table-bordered">
+<table class="table table-dark table-bordered">
 	<thead>
 		<tr>
-			<th scope="col">Trial</th>
+			<th scope="col" className="bg-primary">{month}</th>
 		</tr>
 	</thead>
 	<tbody>
+		
+		{apps.map((week)=>(
 		<tr>
-		<div className="d-flex flex-row">
-			{apps[1].map(day=>(<td className="d-flex p-2 cell">{day.map(appt=>(<div key={apps.AppointmentID}>{shorten(appt.Student)}</div>))}</td>))}
-		</div>
-		</tr>
+			<div className="d-flex flex-row">{week.map(day=>(
+				<td className="d-flex p-2 cell">{day.map(appt=>(
+					<div className="bg-primary apptheader" key={apps.AppointmentID}>{shorten(appt.Student)}</div>))}
+				</td>))}
+			</div>
+		</tr>))}
+		
 	</tbody>
 </table>
 </div>
+</div>}
 </div>
-				</div>
-			</div>
-	    </div>
     )
 }
 

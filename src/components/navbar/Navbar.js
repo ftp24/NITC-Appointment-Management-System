@@ -20,17 +20,24 @@ useEffect(()=>{
   }
     return (
         <div>
-
+			<nav class="navbar navbar-default ">
+			</nav>
 <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
-  {!!user&&
-  <Link className="navbar-brand" to="/home">Appointment Manager</Link>
+  {!!user&&(user.type=="student")&&
+  <Link className="navbar-brand" to="/student-appointments">Appointment Manager</Link>
+  }
+  {!!user&&(user.type=="faculty")&&
+  <Link className="navbar-brand" to="/faculty-appointments">Appointment Manager</Link>
+  }
+  {!!user&&(user.type=="admin")&&
+  <Link className="navbar-brand" to="/admin-appointments">Appointment Manager</Link>
   }
   {!user&&
-  <Link className="navbar-brand" to="/login">Appointment Manager</Link>
+  <Link className="navbar-brand" to="#">Appointment Manager</Link>
   }
   {
 		!!user&&
-      <div onClick={buha} className="nav-link text-light" style={{'cursor' : 'default', 'paddingRight':'30px'}}>Hi, {user.username}</div>
+      <div className="nav-link text-light" style={{'cursor' : 'default', 'paddingRight':'30px'}}>Hi, {user.username}</div>
 	 }
   <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span className="navbar-toggler-icon"></span>

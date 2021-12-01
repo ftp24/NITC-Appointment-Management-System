@@ -25,3 +25,12 @@
   -webkit-box-flex: 0;
   -webkit-tap-highlight-color: #0000;
 }
+.apptheader{
+font-size:.75em;
+font-weight:bold;
+color:white;
+padding:.35em .65em;
+border-radius: 15%;
+height: min-content;
+width: 100%;
+}

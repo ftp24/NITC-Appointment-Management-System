@@ -24,12 +24,12 @@ function AddAppointment({user}) {
 	{
 		e.preventDefault();
 		let appointment={
-			Title:(document.getElementById('inputTitle')).value,
-			Description:(document.getElementById('inputDescription')).value,
-			Faculty:(document.getElementById('inputFaculty')).value,
-			Date:(document.getElementById('inputDate')).value,
-			Time:(document.getElementById('inputTime')).value,
-			Student:(user.username).value
+			title:(document.getElementById('inputTitle')).value,
+			description:(document.getElementById('inputDescription')).value,
+			faculty:(document.getElementById('inputFaculty')).value,
+			date:(document.getElementById('inputDate')).value,
+			time:(document.getElementById('inputTime')).value,
+			student:(user.username).value
 		};
 		console.log(appointment);
 
@@ -37,10 +37,10 @@ function AddAppointment({user}) {
 
     return (
 		<div className="row align-items-center justify-content-md-center">
-			<div className="col-7 mt-5">
-				<div className="card">
+			<div className="col-7">
+				<div className="container container_box">
 					<div className="card-body">
-						<h5 class="card-title">Schedule an Appointment</h5>
+						<h2 class="card-title">Schedule an Appointment</h2>
 						<form>
 							<div className="form-group row">
 								<div className="col-12">
@@ -55,12 +55,13 @@ function AddAppointment({user}) {
 									<div className="row">
 										<div className="col-12">
 											<label htmlFor="inputFaculty">Faculty</label>
+											<select className="form-select  ml-3" id="inputFaculty" name="inputFaculty">
+												{options.map((option) => (
+	              									<option value={option.value}>{option.label}</option>
+	            								))}
+											</select>
 										</div>
-										<select className="form-select  ml-3" id="inputFaculty" name="inputFaculty">
-											{options.map((option) => (
-              									<option value={option.value}>{option.label}</option>
-            								))}
-										</select>
+
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
@@ -74,7 +75,7 @@ function AddAppointment({user}) {
 									</div>
 								</div>
 								<div className="col-4">
-									<button type="submit" className="btn mt-2" onClick={addSubmit}>Book</button>
+									<button type="submit" className="btn button mt-2" onClick={addSubmit}>Book</button>
 								</div>
 							</div>
 						</form>

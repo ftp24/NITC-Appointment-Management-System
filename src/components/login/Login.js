@@ -87,7 +87,7 @@ const Login= ({user,setUser}) => {
 	}
 
     return (
-			<div className="container mt-5">
+			<div className="container container_box mt-5">
 				<h2 className="header">Login</h2>
 				<div className="row">
 					<div className="col-6">
@@ -100,7 +100,7 @@ const Login= ({user,setUser}) => {
 			                    	{(valueEmail===''&&showEmailWarning)&& <div className="alert alert-danger" role="alert">
 									<span className="fa fa-exclamation-triangle fa-lg mr-2" style={{'color':'red'}}>
 									</span>
-		  							'Please enter a valid password.'
+		  							'Please enter a valid email.'
 								</div>}
 								</div>
 			                    <div className="col-12 form-group">
