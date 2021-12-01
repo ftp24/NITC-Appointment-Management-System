@@ -16,7 +16,7 @@ export default function AdminNoteView() {
 			<div className="col-7 mt-5">
 				<div className="card">
 					<div className="card-body">
-						<h5 class="card-title">{appointment.Title}</h5>
+						<h5 className="card-title">{appointment.Title}</h5>
 							<div className="form-group row">
 								<div className="col-12">
 									<div className="row">

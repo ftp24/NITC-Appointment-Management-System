@@ -34,10 +34,10 @@ const Login= ({user,setUser}) => {
 			setShowEmailWarning(true)
 		}
 		else{
-			Login();
+			Login_db();
 		}
 	}
-	async function Login() {
+	async function Login_db() {
 		var request={'username':valueEmail,'password':valuePassword}
 		// GET request using fetch with async/await
 		/* const response = await fetch('https://pimtrackr-server.herokuapp.com/login', {
@@ -57,7 +57,8 @@ const Login= ({user,setUser}) => {
 		if (!('message' in data))
 		{
 			localStorage.setItem('user', JSON.stringify(data));
-			setUser(data)
+			setUser(JSON.parse(localStorage.getItem('user')));
+
 			setInvalidPassword(false);
 			setInvalidEmail(false);
 

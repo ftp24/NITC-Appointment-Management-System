@@ -19,36 +19,28 @@ import StudentNoteView from "./components/student/StudentNoteView.js";
 import AdminAppointments from "./components/admin/AdminAppointments"
 
 const AppWrapper = () => {
-	const [user,setUser]=useState(JSON.parse(localStorage.getItem('user')));
-  return (
-    <Router>
-		<Route path="/login" >
-			<Login user={user} setUser={setUser} />
-		</Route>
-      <App user={user} setUser={setUser} />
-    </Router>
-  )
+	return (
+		<Router>
+			<App/>
+		</Router>
+	)
 }
 
 
 
-function App({user,setUser}) {
-  let history=useHistory();
+function App() {
 
-    useEffect(() => {
-	loggedIn()
-
-	},[])
-  function loggedIn()
-  {
+	const [user, setUser] = useState()
+	let history=useHistory();
 	const pathname = window.location.pathname;
 
-	setUser(JSON.parse(localStorage.getItem('user')));
-	console.log(user);
-	if(!!user) //if user is present
-  {
+	useEffect(() => {
+		setUser(JSON.parse(localStorage.getItem('user')));
 
-		setUser(JSON.parse(user));
+	}, [])
+
+	if(!!user) //if user is present
+	{
 		if(pathname === '/login' || pathname === '/' || pathname === '/home')
 		{
 			if((user.type)=='student')
@@ -64,36 +56,33 @@ function App({user,setUser}) {
 				history.push('/admin-appointments')
 			}
 		}
-  }
-	else{
-  if(pathname!='/login')
-  	history.push('/login');
+
 	}
-  }
+	else{
+		history.push('/login');
+	}
 
-  return (
-    <div className="App">
-      <Router>
-		  <Navbar user={user} setUser={setUser}></Navbar>
-				{!!user&&<Switch>
-					
+	return (
+		<div className="App">
+		<Navbar user={user} setUser={setUser}></Navbar>
+		<Switch>
+				<Route path="/login" >
+					<Login user={user} setUser={setUser}/>
+				</Route>
 
-					{/* { <Route exact path="/home">
+				{/* { <Route exact path="/home">
 					{loggedIn()}
 					</Route> } */}
 
-
-
-
 					{/* Student Routes */}
-          <Route exact path="/student-appointments" user={user}><StudentAppointments/></Route>
-					<Route exact path="/student-add" user={user}><AddAppointment/></Route>
+					<Route exact path="/student-appointments" ><StudentAppointments/></Route>
+					<Route exact path="/student-add" ><AddAppointment/></Route>
 					<Route exact path="/student/noteview" >
 						<StudentNoteView></StudentNoteView>
 					</Route>
 
 					{/* Faculty Routes */}
-          <Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
+					<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
 					<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
 					<Route exact path="/faculty-reschedule"><RescheduleAppointment/></Route>
 					<Route exact path="/faculty/noteview" >
@@ -101,9 +90,9 @@ function App({user,setUser}) {
 					</Route>
 
 					{/* Admin Routes */}
-          			<Route exact path="/admin-appointments"><AdminAppointments/></Route>
+					<Route exact path="/admin-appointments"><AdminAppointments/></Route>
 					<Route exact path="/home/admin" >
-						<AdminMain user={user} setUser={setUser} loggedIn={loggedIn} />
+						<AdminMain/>
 					</Route>
 					<Route exact path="/admin/noteview" >
 						<AdminNoteView></AdminNoteView>
@@ -112,12 +101,9 @@ function App({user,setUser}) {
 
 
 					{/* <Route path="*"><Error404/></Route> */}
+			</Switch>
+		</div>
+		);
+	}
 
-
-				</Switch>}
-			</Router>
-    </div>
-  );
-}
-
-export default AppWrapper
+	export default AppWrapper

@@ -32,7 +32,7 @@ export default function FacultyNoteView() {
 			<div className="col-7 mt-5">
 				<div className="card">
 					<div className="card-body">
-						<h5 class="card-title">{appointment.Title}</h5>
+						<h5 className="card-title">{appointment.Title}</h5>
 							<div className="form-group row">
 								<div className="col-12">
 									<div className="row">
@@ -66,28 +66,28 @@ export default function FacultyNoteView() {
                                     <div className="row mt-3 ml-0 mr-2">
 									<div className="d-flex justify-content-center col-12">
                                     {(appointment.Status=="Pending")&&
-                                    <Link to="/reschedule" class="btn button col-3 mr-4">
-                                        <i class="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;Reschedule
+                                    <Link to="/reschedule" className="btn button col-3 mr-4">
+                                        <i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;Reschedule
                                     </Link>
                                     }
                                     {(appointment.Status=="Pending")&&
-                                    <div onClick={approve} class="btn btn-success col-3 mr-4">
-                                        <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve
+                                    <div onClick={approve} className="btn btn-success col-3 mr-4">
+                                        <i className="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve
                                     </div>
                                     }
                                     {(appointment.Status=="Pending")&&
-                                    <div onClick={reject} class="btn btn-danger col-3 mr-4">
-                                        <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Reject
+                                    <div onClick={reject} className="btn btn-danger col-3 mr-4">
+                                        <i className="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Reject
                                     </div>
                                     }
                                     {(appointment.Status=="Approved")&&
-                                    <div onClick={cancel} class="btn btn-danger col-3 mr-4">
-                                        <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel
+                                    <div onClick={cancel} className="btn btn-danger col-3 mr-4">
+                                        <i className="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel
                                     </div>
                                     }
                                     </div>
                                     </div>
-								</div>									
+								</div>
 							</div>
 					</div>
 				</div>

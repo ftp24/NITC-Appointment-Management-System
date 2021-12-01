@@ -46,15 +46,15 @@ function AddAppointment({user}) {
 								<div className="col-12">
 									<div className="row">
 										<div className="col-12">
-											<label for="inputTitle">Title</label>
+											<label htmlFor="inputTitle">Title</label>
 											<input type="text" className="form-control mb-4" id="inputTitle" placeholder="Enter Title"/>
-											<label for="inputDescription">Description</label>
+											<label htmlFor="inputDescription">Description</label>
 											<textarea rows="3" cols="10" className="form-control mb-4" id="inputDescription" placeholder="Enter Description"/>
 										</div>
 									</div>
 									<div className="row">
 										<div className="col-12">
-											<label for="inputFaculty">Faculty</label>
+											<label htmlFor="inputFaculty">Faculty</label>
 										</div>
 										<select className="form-select  ml-3" id="inputFaculty" name="inputFaculty">
 											{options.map((option) => (
@@ -64,11 +64,11 @@ function AddAppointment({user}) {
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
-											<label for="inputDate">Date</label>
+											<label htmlFor="inputDate">Date</label>
 											<input type="date" className="form-control mb-4" id="inputDate" name="inputDate" placeholder="Enter Date"/>
 										</div>
 										<div className="col-6">
-										<label for="inputTime">Time</label>
+										<label htmlFor="inputTime">Time</label>
 										<input type="time" className="form-control mb-1" id="inputTime" name="inputTime" placeholder="Enter Time"/>
 										</div>
 									</div>
