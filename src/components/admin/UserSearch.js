@@ -7,10 +7,26 @@ function SearchUser() {
 	function searchID(e)
 	{
 		e.preventDefault();
-		setUser([{id:((document.getElementById('inputID')).value),name:"Jesvin Sebastian",email:"jesvin_b190700cs@nitc.ac.in",phone:"12345678",department:"CSE"}]);
-
-		console.log(user);
+		let u_id=(document.getElementById('inputID')).value
+		u_id&&searchID_db(u_id)
+		// setUser([{id:((document.getElementById('inputID')).value),name:"Jesvin Sebastian",email:"jesvin_b190700cs@nitc.ac.in",phone:"12345678",department:"CSE"}]);
 	}
+	async function searchID_db(u_id) {
+		// POST request using fetch with async/await
+		let request={u_id}
+		const response = await fetch('http://localhost:5000/details', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		setUser([data]);
+		console.log("data",data)
+		console.log("user",user)
+	}
+
     return (
 		<div className="container container_box">
  		   <div className="row align-items-center justify-content-md-center">

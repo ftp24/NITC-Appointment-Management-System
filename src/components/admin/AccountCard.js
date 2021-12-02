@@ -2,15 +2,18 @@ import { useState, useEffect } from 'react'
 
 const AccountCard = ({account}) => {
 	const [show,setShow] = useState(true)
-	function DeleteAccount(e)
-	{
-		e.preventDefault()
-		console.log(account.id)
-		setShow(false)
-	}
+
 	useEffect(() => {
 	    setShow(true)
 	}, [account])
+
+	function DeleteAccount(e)
+	{
+		e.preventDefault()
+		console.log(account.u_id)
+
+		setShow(false)
+	}
 
 
     return (
@@ -18,22 +21,22 @@ const AccountCard = ({account}) => {
 	        {show&&<div className = 'card task'>
 				<div className="row">
 					<div className="col-12">
-				        <h2 style={HeadingStyle}>{account.name}</h2>
+				        <h2 style={HeadingStyle}>{account.uname}</h2>
 					</div>
 					<div className="col-6 mt-2">
-						<h5>ID: {account.id}</h5>
+						<h5>ID: {account.u_id}</h5>
 					</div>
-					<div className="col-6 mt-2">
-					    <h5>Department: {account.department}</h5>
-					</div>
+					{/*<div className="col-6 mt-2">
+					    <h5>Department: {account.dname}</h5>
+					</div>*/}
 					<div className="col-6 mt-2">
 						<h5>Email: {account.email}</h5>
 					</div>
 					<div className="col-6 mt-2">
-						<h5>Phone: {account.phone}</h5>
+						<h5>Phone: {account.mobileno}</h5>
 					</div>
 					<div className="col-6">
-						<button className="btn btn-danger mt-3" onClick={DeleteAccount}>DELETE</button>
+						<button className="btn btn-danger " onClick={DeleteAccount}>DELETE</button>
 					</div>
 				</div>
 			</div>}

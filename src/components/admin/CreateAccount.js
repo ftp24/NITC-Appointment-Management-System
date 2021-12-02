@@ -1,24 +1,64 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom'
+import { useEffect, useState } from 'react'
 
 function AddAppointment({user}) {
 
 	let history=useHistory()
+	const [options,setOptions] = useState([]);
+
+	useEffect(() => {
+	    getDepartments_db()
+	}, [])
+
+	async function getDepartments_db() {
+		// POST request using fetch with async/await
+		let request={}
+		const response = await fetch('http://localhost:5000/list_all_departments', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data",data)
+		setOptions(data)
+	}
 
 	function addSubmit(e)
 	{
 		e.preventDefault();
 		let user={
-			id:(document.getElementById('inputID')).value,
-			type:(document.getElementById('inputType')).value,
-			name:(document.getElementById('inputName')).value,
+			u_id:(document.getElementById('inputID')).value,
+			uname:(document.getElementById('inputName')).value,
 			email:(document.getElementById('inputEmail')).value,
-			phone:(document.getElementById('inputPhone')).value,
-			password:(document.getElementById('inputPassword')).value,
+			pwd:(document.getElementById('inputPassword')).value,
+			mobileno:(document.getElementById('inputPhone')).value,
+			dname:(document.getElementById('inputDepartment')).value,
+			type:(document.getElementById('inputType')).value,
 		};
-		console.log(user);
-		history.goBack();
+		addSubmit_db(user)
 	}
+
+	async function addSubmit_db(user) {
+		var request=user
+		console.log("request: ",request)
+		// POST request using fetch with async/await
+		const response = await fetch('http://localhost:5000/signup', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data received",data)
+
+		// history.goBack();
+
+	}
+
 
 	return (
 		<div className="row align-items-center justify-content-md-center">
@@ -30,14 +70,22 @@ function AddAppointment({user}) {
 							<div className="col-12">
 								<div className="row">
 									<div className="col-6">
-										<label for="inputID">User ID</label>
+										<label htmlFor="inputID">User ID</label>
 										<input type="text" className="form-control mb-4" id="inputID"/>
 									</div>
-									<div className="col-6">
-										<label for="inputType">Account Type</label>
+									<div className="col-3">
+										<label htmlFor="inputType">Account Type</label>
 										<select className="form-control  mb-4" id="inputType" name="inputType">
 											<option label="Student" value="student">Student</option>
 											<option label="Faculty" value="faculty">Faculty</option>
+										</select>
+									</div>
+									<div className="col-3">
+										<label htmlFor="inputDepartment">Department</label>
+										<select className="form-control" id="inputDepartment" name="inputDepartment">
+											{options.map((option) => (
+												<option value={option.dname}>{option.dname}</option>
+											))}
 										</select>
 									</div>
 									<div className="col-6">
