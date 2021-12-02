@@ -1,11 +1,11 @@
 import React from 'react'
-import { Link } from 'react-router-dom';
+import { Link, useHistory, useParams } from 'react-router-dom';
 import {useEffect} from 'react'
-import { useParams } from "react-router-dom";
+import {  } from "react-router-dom";
 
 export default function FacultyNoteView() {
 	let  {id}  = useParams();
-
+	let history=useHistory();
 	//call api to fill in the details
 	useEffect(() => {
 		}, []);
@@ -29,16 +29,19 @@ export default function FacultyNoteView() {
     function approve()
     {
         console.log("approved");
+		history.goBack()
     }
 
     function reject()
     {
         console.log("rejected");
+		history.goBack()
     }
 
     function cancel()
     {
         console.log("cancelled");
+		history.goBack()
     }
 
     return (

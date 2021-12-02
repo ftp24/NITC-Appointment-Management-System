@@ -1,10 +1,11 @@
 import React from 'react'
 import { useEffect } from 'react';
-import { useParams } from "react-router-dom";
+import { useParams,useHistory } from "react-router-dom";
 
 export default function StudentNoteView() {
 
 	let  {id}  = useParams();
+	let history=useHistory();
 
     //call api to fill in the details
     useEffect(() => {
@@ -27,11 +28,13 @@ export default function StudentNoteView() {
     function approve()
     {
         console.log("approved");
+		history.goBack()
     }
 
     function reject()
     {
         console.log("rejected");
+		history.goBack()
     }
 
     function cancel()
@@ -42,6 +45,7 @@ export default function StudentNoteView() {
         else if(appointment.Status=="Approved"){
             console.log("Cancelled")
         }
+		history.goBack()
     }
 
     return (

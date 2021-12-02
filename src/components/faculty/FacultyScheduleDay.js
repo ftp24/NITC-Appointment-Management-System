@@ -12,7 +12,7 @@ function FacultyScheduleDay() {
 	function checkDate(e)
 	{
 		e.preventDefault();
-		setTasks([{id:5, title:"hello",date:((document.getElementById('inputDate')).value),status:"Pending"}]);
+		setTasks([{id:5, title:"hello",date:((document.getElementById('inputDate')).value),status:"Approved"}]);
 	}
 
     return (

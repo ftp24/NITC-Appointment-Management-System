@@ -1,6 +1,9 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom';
 
 function AddAppointment({user}) {
+
+	let history=useHistory()
 	const options = [
 		{
 			label: "Apple",
@@ -32,7 +35,7 @@ function AddAppointment({user}) {
 			student:(user.username).value
 		};
 		console.log(appointment);
-
+		history.push('/student-appointments')
 	}
 
     return (
