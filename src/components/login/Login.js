@@ -24,6 +24,12 @@ const Login= ({user,setUser}) => {
 		setShowPassWarning(false)
 	};
 
+	const [valueType, setValueType] = useState('');
+
+	const handleChangeType = (event) => {
+		setValueType(event.target.value);
+	};
+
 
 
 	function onClick(event){
@@ -38,26 +44,27 @@ const Login= ({user,setUser}) => {
 		}
 	}
 	async function Login_db() {
-		var request={'username':valueEmail,'password':valuePassword}
-		// GET request using fetch with async/await
-		/* const response = await fetch('https://pimtrackr-server.herokuapp.com/login', {
+		var request={'u_id':valueEmail,'pwd':valuePassword,'type':valueType}
+		console.log("request: ",request)
+		// POST request using fetch with async/await
+		const response = await fetch('http://localhost:5000/signin', {
 			method: 'POST',
 			headers: {
 				'Content-type': 'application/json' // The type of data you're sending
 			},
 			body: JSON.stringify(request) // The data
 		})
-		const data = await response.json(); */
-		//console.log(data)
-		const data = {
-			'id':1,
-			'type':'faculty',
-			'username':'John Devin'
+		const data = await response.json();
+		console.log("data",data)
+		const userdetails = {
+			'id':data.u_id,
+			'type':valueType,
+			'username':data.uname
 		}
 		if (!('message' in data))
 		{
-			localStorage.setItem('user', JSON.stringify(data));
-			setUser(JSON.parse(localStorage.getItem('user')));
+			localStorage.setItem('user', JSON.stringify(userdetails));
+			setUser(userdetails);
 
 			setInvalidPassword(false);
 			setInvalidEmail(false);
@@ -94,7 +101,7 @@ const Login= ({user,setUser}) => {
 						<form>
 							<div className="form-row">
 			                    <div className="mt-4 col-12 form-group">
-			                        <label className="col-3 col-form-label" htmlFor="uname">Email address</label>
+			                        <label className="col-3 col-form-label" htmlFor="uname">Roll Number/SSN</label>
 			                        <input type="email" className="col-8 form-control " name="uname" id="uname"
 									value={valueEmail} onChange={handleChangeEmail} placeholder="Enter Email"></input>
 			                    	{(valueEmail===''&&showEmailWarning)&& <div className="alert alert-danger" role="alert">
@@ -113,6 +120,14 @@ const Login= ({user,setUser}) => {
 		  							'Please enter valid password.'
 								</div>}
 			                    </div>
+			                    <div className="col-12 form-group">
+									<label className="col-3 col-form-label" for="utype">User type:</label>
+										<select onChange={handleChangeType} className="col-8 form-control mr-1" name="utype" id="utype">
+											<option selected="selected" value="student">Student</option>
+											<option value="faculty">Faculty</option>
+											<option value="admin">Administrator</option>
+									</select>
+								</div>
 			                </div>
 
 			                <div className="form-row">

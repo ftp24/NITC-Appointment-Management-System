@@ -82,7 +82,7 @@ function App() {
 				<Route exact path="/faculty/apptview/:id" ><FacultyNoteView></FacultyNoteView></Route>
 
 				{/* Admin Routes */}
-				<Route exact path="/admin-appointments"><AdminAppointments/></Route>
+				<Route exact path="/admin-appointments"><AdminAppointments user={user} /></Route>
 				<Route exact path="/admin/apptview/:id" ><AdminNoteView></AdminNoteView></Route>
 				<Route exact path="/accounts"><UserSearch/></Route>
 				<Route exact path="/create-account"><CreateAccount/></Route>

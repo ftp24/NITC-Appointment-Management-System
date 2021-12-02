@@ -7,6 +7,7 @@ const Task = ({task}) => {
             <h3 style={HeadingStyle}>Appointment with {task.fac_name}</h3>
             <p>On {task.date}</p>
             <p>From {task.stu_name}</p>
+            <p>To {task.fac_name}</p>
         </div>
     )
 }
