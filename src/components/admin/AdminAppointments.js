@@ -34,7 +34,7 @@ const AdminAppointments = ({user}) => {
       return (
         <div className = 'container container_box'>
           <Header/>
-          {tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/admin/apptview/'+task.aptId}><Task key={task.aptId} task={task}/> </Link>)) :'No pending appointments'}
+          {tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/admin/apptview/'+task.aptId}><Task key={task.aptId} task={task} user={user}/> </Link>)) :'No pending appointments'}
 
         </div>
       )

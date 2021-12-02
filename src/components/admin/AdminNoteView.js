@@ -1,5 +1,5 @@
 import React from 'react'
-import {useEffect} from 'react'
+import {useEffect,useState} from 'react'
 import { useParams } from "react-router-dom";
 
 export default function AdminNoteView() {
@@ -7,22 +7,42 @@ export default function AdminNoteView() {
 
 //call api to fill in the details
 	useEffect(() => {
-	    }, []);
+		getDetails(id)
+	    }, [id]);
 
-		//simulating backend call
-		let taskClicked={
-		id: 1,
-	  	  status: "pending",
-	  	  date:  "2001-12-12",
-		  time: "13:14",
-	  	  title: "Request to marry your daughter",
-	  	  description: "Dear sir, I love your daughter very much. I would like to ask for her hand in marriage.",
-	  	  stu_name:"jesvin", //assume they give student and fac name
-	  	  fac_name:"raju",
-	  	  suggested_Date:"",
-	  	  faculty_message:"",
-	  	  reminder: true
-	    }
+		async function getDetails(id) {
+			var request={'appt_id':id}
+			console.log("request: ",request)
+			// POST request using fetch with async/await
+			const response = await fetch('http://localhost:5000/get_appt', {
+				method: 'POST',
+				headers: {
+					'Content-type': 'application/json' // The type of data you're sending
+				},
+				body: JSON.stringify(request) // The data
+			}).then(response => response.json())
+			.then(data=>{
+				console.log("data",data)
+			if (!('message' in data))
+			{
+				setTaskClicked(data);
+				if(data.status==1){
+					setStatus("Pending")
+				}
+				else if(data.status==2){
+					setStatus("Rejected")
+				}else if(data.status==3){
+					setStatus("Approved")
+				}else if(data.status==4){
+					setStatus("Rescheduled")
+				}
+			}
+		})			
+		}
+
+	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
+	const[status,setStatus]=useState("Pending")
+		
 
     return (
         <div className="row align-items-center justify-content-md-center">
@@ -35,7 +55,7 @@ export default function AdminNoteView() {
 									<div className="row">
 										<div className="col-12">
 											<label for="outputDescription">Description</label>
-											<textarea rows="3" cols="10" className="form-control mb-4" id="outputDescription" value={taskClicked.description} readOnly/>
+											<textarea rows="3" cols="10" className="form-control mb-4" id="outputDescription" value={taskClicked.decription} readOnly/>
 										</div>
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
@@ -51,17 +71,17 @@ export default function AdminNoteView() {
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
 											<label for="outputDate">Date</label>
-											<input type="date" className="form-control mb-4" id="outputDate" value={taskClicked.date} readOnly/>
+											<input type="date" className="form-control mb-4" id="outputDate" value={taskClicked.date_scheduled} readOnly/>
 										</div>
 										<div className="col-6">
 										<label for="outputTime">Time</label>
-										<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time} readOnly/>
+										<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time_scheduled} readOnly/>
 										</div>
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 									<div className="col-6">
 											<label for="outputStatus">Status</label>
-									<input type="text" className="form-control mb-1" id="outputStatus" value={taskClicked.status} readOnly/>
+									<input type="text" className="form-control mb-1" id="outputStatus" value={status} readOnly/>
                                     </div>
                                     </div>
 								</div>
