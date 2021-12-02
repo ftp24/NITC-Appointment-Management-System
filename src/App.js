@@ -35,9 +35,24 @@ function App() {
 	let history=useHistory();
 	const pathname = window.location.pathname;
 
+	let studentPath=['/login','/student-appointments','student-add']
+	let facultyPath=['/login','/faculty-appointments','faculty-schedule-day','faculty-schedule-month']
+	let adminPath=['login','/admin-appointments','accounts','create-accounts']
 
 	if(!!user) //if user is present
 	{
+		if(user.type=='student' && !(studentPath.includes(pathname)))
+		{
+			history.push('/student-appointments')
+		}
+		if(user.type=='faculty' &&  !(facultyPath.includes(pathname)))
+		{
+			history.push('/faculty-appointments')
+		}
+		if(user.type=='admin' &&  !(adminPath.includes(pathname)))
+		{
+			history.push('/admin-appointments')
+		}
 		if(pathname === '/login' || pathname === '/' || pathname === '/home')
 		{
 			if((user.type)=='student')
@@ -53,7 +68,6 @@ function App() {
 				history.push('/admin-appointments')
 			}
 		}
-
 	}
 	else{
 		history.push('/login');
