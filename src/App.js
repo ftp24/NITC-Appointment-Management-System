@@ -84,7 +84,7 @@ function App() {
 					</Route> } */}
 
 				{/* Student Routes */}
-				<Route exact path="/student-appointments" ><StudentAppointments/></Route>
+				<Route exact path="/student-appointments" ><StudentAppointments user={user}/></Route>
 				<Route exact path="/student-add" ><AddAppointment user={user}/></Route>
 				<Route exact path="/student/apptview/:id" ><StudentNoteView></StudentNoteView></Route>
 

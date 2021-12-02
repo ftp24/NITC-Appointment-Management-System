@@ -1,41 +1,64 @@
 import React from 'react'
 import { useHistory } from 'react-router-dom';
+import { useEffect, useState } from 'react'
+import moment from 'moment'
 
 function AddAppointment({user}) {
 
 	let history=useHistory()
-	const options = [
-		{
-			label: "Apple",
-			value: "apple",
-		},
-		{
-			label: "Mango",
-			value: "mango",
-		},
-		{
-			label: "Banana",
-			value: "banana",
-		},
-		{
-			label: "Pineapple",
-			value: "pineapple",
-		},
-	];
+	const [options,setOptions] = useState([]);
+
+	useEffect(() => {
+	    getFaculty_db()
+	}, [1])
+
+	async function getFaculty_db() {
+		// POST request using fetch with async/await
+		let request={}
+		const response = await fetch('http://localhost:5000/list_all_fac', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data",data)
+		setOptions(data)
+	}
 
 	function addSubmit(e)
 	{
 		e.preventDefault();
+		let curr_datetime=moment().format("YYYY-MM-DD")+'#'+moment().format("HH:mm:ss")
 		let appointment={
+			date_created:curr_datetime,
+			date_appointment:(document.getElementById('inputDate')).value,
+			time_appointment:(document.getElementById('inputTime')).value,
 			title:(document.getElementById('inputTitle')).value,
 			description:(document.getElementById('inputDescription')).value,
-			faculty:(document.getElementById('inputFaculty')).value,
-			date:(document.getElementById('inputDate')).value,
-			time:(document.getElementById('inputTime')).value,
-			student:(user.username).value
+			stud_id:(user.id),
+			fac_id:(document.getElementById('inputFaculty')).value,
 		};
-		console.log(appointment);
-		history.push('/student-appointments')
+		addSubmit_db(appointment)
+	}
+
+	async function addSubmit_db(appointment) {
+		var request=appointment
+		console.log("request: ",request)
+		// POST request using fetch with async/await
+		const response = await fetch('http://localhost:5000/request_stud', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data received",data)
+
+		// history.goBack();
+
 	}
 
     return (
@@ -58,9 +81,9 @@ function AddAppointment({user}) {
 									<div className="row">
 										<div className="col-12">
 											<label htmlFor="inputFaculty">Faculty</label>
-											<select className="form-select  ml-3" id="inputFaculty" name="inputFaculty">
+											<select className="form-control col-3  ml-3" id="inputFaculty" name="inputFaculty">
 												{options.map((option) => (
-	              									<option value={option.value}>{option.label}</option>
+	              									<option value={option.u_id}>{option.uname}</option>
 	            								))}
 											</select>
 										</div>

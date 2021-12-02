@@ -2,7 +2,9 @@ const Task = ({ task }) => {
     return (
         <div className = {`task ${task.reminder ? 'reminder' : 'reminder'}`}>
             <h3 style={HeadingStyle}>Appointment with {task.fac_name}</h3>
-            <p>{task.date}</p>
+			<h5>{task.title}</h5>
+
+            <p>On {task.date_scheduled}</p>
         </div>
     )
 }

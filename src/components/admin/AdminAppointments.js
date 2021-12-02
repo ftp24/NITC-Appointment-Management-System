@@ -8,11 +8,14 @@ import { Link } from "react-router-dom"
 import { useEffect } from 'react/cjs/react.development';
 
 const AdminAppointments = ({user}) => {
+
 	let history=useHistory()
 	const [tasks, setTasks] = useState([])
+
 	useEffect(()=>{
 		getAllAppointments()
 	},[])
+
 	async function getAllAppointments() {
 		var request={'u_id':user.id}
 		console.log("request: ",request)
@@ -31,13 +34,13 @@ const AdminAppointments = ({user}) => {
 			setTasks(data);
 		}
 	}
-      return (
-        <div className = 'container container_box'>
-          <Header/>
-          {tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/admin/apptview/'+task.aptId}><Task key={task.aptId} task={task} user={user}/> </Link>)) :'No pending appointments'}
+	return (
+		<div className = 'container container_box'>
+			<Header/>
+			{tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/admin/apptview/'+task.aptId}><Task key={task.aptId} task={task} user={user}/> </Link>)) :'No pending appointments'}
 
-        </div>
-      )
+		</div>
+	)
 }
 
 export default AdminAppointments
