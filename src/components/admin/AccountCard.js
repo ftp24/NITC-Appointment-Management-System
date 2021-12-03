@@ -51,10 +51,13 @@ const AccountCard = ({account}) => {
 					<div className="col-6 mt-2">
 						<h5>Phone: {account.mobileno}</h5>
 					</div>
-					<div className="col-6">
-						<button className="btn btn-danger " onClick={DeleteAccount}>DELETE</button>
+					<div className="col-6 mt-2">
+						<h5>Department: {account.dname}</h5>
 					</div>
 				</div>
+					<div className="d-flex justify-content-center mt-3">
+						<button className="btn btn-danger col-md-4" onClick={DeleteAccount}>DELETE</button>
+					</div>
 			</div>}
 
 			{(!show)&&<div className="row justify-content-center">
