@@ -17,8 +17,6 @@
   flex-basis: 14.289%;
   max-width: 14.289%;
   
-  flex-wrap: wrap;
-  
   height: 125px;
   flex-grow: 0;
   flex-shrink: 0;
@@ -33,4 +31,9 @@ padding:.35em .65em;
 border-radius: 15%;
 height: min-content;
 width: 100%;
+position: relative;
+}
+.daynum{
+  position: absolute;
+  text-align: right;
 }

@@ -112,7 +112,7 @@ function AddAppointment({user}) {
 								</div>
 							</div>
 								<div className="d-flex justify-content-center">
-									<button type="submit" className="btn button mt-2 col-md-4" onClick={addSubmit}>Book</button>
+									<button type="submit" className="btn button mt-2 col-md-4 btn-info" onClick={addSubmit}>Book</button>
 								</div>
 						</form>
 					</div>

@@ -126,9 +126,9 @@ function FacultyScheduleMonth({user}) {
 									<label htmlFor="year">Choose Year:</label>&nbsp;&nbsp;
 									<input id="year" className="form-control" type="number" min="1900" max="2099" step="1" value="2021" onChange={yearOnChange}/>
 									</div>
-									<div className="col-4 offset-md-2 ml-3 mt-4">
-										<button type="submit" className="button btn" onClick={checkMonth}>Submit</button>
-									</div>
+								</div>
+								<div className="d-flex justify-content-center">
+									<button type="submit" className="button btn btn-info col-md-4" onClick={checkMonth}>Submit</button>
 								</div>
 							</form>
 						</div>
@@ -138,21 +138,23 @@ function FacultyScheduleMonth({user}) {
 
 			{!!month&&<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-<table class="table table-dark table-bordered">
+<table class="table table-light table-bordered table-striped">
 	<thead>
 		<tr>
-			<th scope="col" className="bg-primary">{monthName}</th>
+			<th scope="col" className="button">{monthName}</th>
 		</tr>
 	</thead>
 	<tbody>
 
-		{apps.map((week)=>(
+		{apps.map((week,weeknum)=>(
 		<tr>
-			<div className="d-flex flex-row">{week.map(day=>(
-				<td className="d-flex p-2 cell">{day.map(appt=>(
+			<div className="d-flex flex-row">{week.map((day,daynum)=>(
+				<td className="d-flex p-2 cell"><div className="col-md-12">{day.map(appt=>(
 					<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+appt.appointment_id}>
-						<div className="bg-primary apptheader" key={appt.appointment_id}>{shorten(appt.stu_name)}</div>
+						<div className="bg-info apptheader mb-1" key={appt.appointment_id}>{shorten(appt.stu_name)}</div>
 					</Link> ))}
+					</div>
+					<span className="daynum">{(weeknum)*7+(daynum+1)}</span>
 				</td>))}
 			</div>
 		</tr>))}

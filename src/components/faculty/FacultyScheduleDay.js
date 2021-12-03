@@ -56,13 +56,13 @@ function FacultyScheduleDay({user}) {
 				<div className="col-10 mt-5">
 					<h2 className="card-title">Schedule for the Day</h2>
 					<form>
+						<label for="inputDate">Date</label>
 						<div className="form-group row">
 							<div className="col-6">
-									<label for="inputDate">Date</label>
 									<input type="date" className="form-control mb-4" id="inputDate" placeholder="Enter Date"/>
 							</div>
-							<div className="col-4 offset-md-2 ml-3 mt-4">
-								<button type="submit" className="button btn" onClick={checkDate}>Submit</button>
+							<div className="col-6">
+								<button type="submit" className="button btn btn-info col-md-6" onClick={checkDate}>Submit</button>
 							</div>
 						</div>
 					</form>

@@ -47,27 +47,27 @@ function SearchUser() {
 				   <div className="card-body">
 					   <h2 className="card-title">User Accounts</h2>
 					   <form>
-						   <div className="form-group row">
-							   <div className="col-6">
 									   <label for="inputID">Enter User ID</label>
-									   <input type="text" className="form-control mb-4" id="inputID" placeholder="Enter ID"/>
-							   </div>
-							   <div className="col-4 offset-md-2 ml-3 mt-4">
-								   <button type="submit" className="button btn" onClick={searchID}>Submit</button>
-							   </div>
-						   </div>
+						   				<div className="row">
+											<div className="col-6">
+												<input type="text" className="form-control mb-4" id="inputID" placeholder="Enter ID"/>
+											</div>
+							   				<div className="col-6">
+								   				<button type="submit" className="button btn btn-info col-md-6" onClick={searchID}>Submit</button>
+							   				</div>
+										</div>
 					   </form>
 				   </div>
  			   </div>
 		   </div>
 		   <div className="row align-items-center justify-content-md-center">
 			   <div className="col-10 mt-5">
-				   //checks if there is a user returned and displays the user as a card
+				   {/* checks if there is a user returned and displays the user as a card */}
 				   {(user.length>0)&&user.map((data)=>(
 					   <AccountCard account={data}/>
 					))}
 				</div>
-				//if user is not found, the 'clicked' state shows the message 
+				{/* if user is not found, the 'clicked' state shows the message */} 
 				<div className="col-4 align-self-center">
 				   {(clicked)&&(user.length==0)&&<h3>No user with that ID</h3>}
 			   </div>
