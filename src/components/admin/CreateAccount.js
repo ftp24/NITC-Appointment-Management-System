@@ -55,7 +55,7 @@ function AddAppointment({user}) {
 		const data = await response.json();
 		console.log("data received",data)
 
-		// history.goBack();
+		history.push('/admin-appointments');
 
 	}
 

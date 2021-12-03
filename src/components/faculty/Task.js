@@ -5,7 +5,7 @@ const Task = ({task}) => {
     return (
         <div className= {`task ${task.reminder ? 'reminder' : 'reminder'}`}>
             <h3 style={HeadingStyle}>Appointment with {task.stu_name}</h3>
-            <p>On {task.date}</p>
+            <p>On {task.date_scheduled}</p>
         </div>
     )
 }

@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 
 import Header from "./Header"
@@ -6,83 +6,32 @@ import Task from "./Task"
 import FacultyNoteView from "./FacultyNoteView";
 import { Link } from "react-router-dom"
 
-const FacultyAppointments = () => {
+const FacultyAppointments = ({user}) => {
 	let history=useHistory()
-	const [tasks, setTasks] = useState([
-        {
-            id : 1,
-			status: "Pending",
-			date:  "2001-12-12",
-			time: "13:14",
-			title: "Request to meet",
-			description: "Dear sir, I would like to meet with you to discuss Theory of computation",
-			stu_name:"jesvin", //assume they give student and fac name
-			fac_name:"raju",
-			suggested_Date:"",
-			faculty_message:"",
-			reminder: true
-		},
-		{
-			id : 2,
-		   status: "pending",
-		   date:  "2001-12-12",
-		   title: "Request to meet you",
-		   description: "Dear sir, I would like to discuss OS with you",
-		   fac_name:"MK",
-		   stu_name:"joseph", //assume they give student and fac name
-		   suggested_Date:"",
-		   faculty_message:"",
-		   reminder: true
-	   },
-	/*	{
-			text : 'Appointment with Vasudevan A R',
-			day : 'Dec 3rd, 2021 at 2:30 pm',
-			student : 'From Varun Anilkumar',
-			reminder : true,
+	const [tasks, setTasks] = useState([])
+	useEffect(()=>{
+		getAllAppointments()
+	},[])
 
-			Title:
-			Description: "I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"1 Joseph Mani Jacob Mani",
-			RollNo:"B190529CS",
-			Status:"Pending"
-		},
+	async function getAllAppointments() {
+		var request={'u_id':user.id}
+		console.log("request: ",request)
+		// POST request using fetch with async/await
+		const response = await fetch('http://localhost:5000/view_all_faculty', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data",data)
+		if (!('message' in data))
 		{
-			id : 2,
-			text : 'Appointment with K Abdul Nazeer',
-			day : 'Dec 4th, 2021 at 2:30 pm',
-			student : 'From Jesvin Sebastian',
-			reminder : true,
+			setTasks(data);
+		}
+	}
 
-			Title:"Request to marry your daughter",
-			Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"2 Joseph Mani Jacob Mani",
-			RollNo:"B190529CS",
-			Status:"Pending"
-		},
-		{
-			id : 3,
-			text : 'Appointment with Vinod Pathari',
-			day : 'Dec 5th, 2021 at 2:30 pm',
-			student : 'From Joseph Mani',
-			reminder : true,
-
-			Title:"Request to marry your daughter",
-			Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"3 Joseph Mani Jacob Mani",
-			RollNo:"B190529CS",
-			Status:"Pending"
-		}*/
-    ]
-    )
 
       return (
         <div className = 'container container_box'>

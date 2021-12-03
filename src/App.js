@@ -89,9 +89,9 @@ function App() {
 				<Route exact path="/student/apptview/:id" ><StudentNoteView></StudentNoteView></Route>
 
 				{/* Faculty Routes */}
-				<Route exact path="/faculty-appointments"><FacultyAppointments/></Route>
-				<Route exact path="/faculty-schedule-day"><FacultyScheduleDay/></Route>
-				<Route exact path="/faculty-schedule-month"><FacultyScheduleMonth/></Route>
+				<Route exact path="/faculty-appointments"><FacultyAppointments user={user}/></Route>
+				<Route exact path="/faculty-schedule-day"><FacultyScheduleDay user={user}/></Route>
+				<Route exact path="/faculty-schedule-month"><FacultyScheduleMonth user={user}/></Route>
 				<Route exact path="/reschedule/:id"><RescheduleAppointment/></Route>
 				<Route exact path="/faculty/apptview/:id" ><FacultyNoteView></FacultyNoteView></Route>
 

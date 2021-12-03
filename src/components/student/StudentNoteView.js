@@ -29,7 +29,6 @@ export default function StudentNoteView() {
 			console.log("data",data)
 		if (!('message' in data))
 		{
-			setTaskClicked(data);
 			if(data.status==1){
 				setStatus("Pending")
 			}
@@ -40,6 +39,8 @@ export default function StudentNoteView() {
 			}else if(data.status==4){
 				setStatus("Rescheduled")
 			}
+			setTaskClicked(data);
+			console.log("TaskClicked=",data)
 		}
 	})
 }
@@ -80,11 +81,11 @@ export default function StudentNoteView() {
 	}
 	async function cancel()
 	{
-	var request={"appt_id":id}
+	var request={'appt_id':id}
 	console.log("request: ",request)
 	// POST request using fetch with async/await
 	const response = await fetch('http://localhost:5000/delete_appt', {
-		method: 'POST',
+		method: 'DELETE',
 		headers: {
 			'Content-type': 'application/json' // The type of data you're sending
 		},
@@ -92,28 +93,11 @@ export default function StudentNoteView() {
 	})
 	const data = await response.json();
 	console.log("data received",data)
-
-	// history.goBack();
+	history.goBack();
 	}
 
 
 
-    function reject()
-    {
-        console.log("rejected");
-		history.goBack()
-    }
-
-    function cancel()
-    {
-        if(taskClicked.Status=="Pending"){
-            console.log("Deleted appt");
-        }
-        else if(taskClicked.Status=="Approved"){
-            console.log("Cancelled")
-        }
-		history.goBack()
-    }
 
     return (
         <div className="row align-items-center justify-content-md-center">
@@ -153,17 +137,17 @@ export default function StudentNoteView() {
                                     </div>
                                     <div className="row mt-3 ml-0 mr-2">
 									<div className="d-flex justify-content-center col-12">
-                                    {(taskClicked.status=="Rescheduled")&&
+                                    {(status=="Rescheduled")&&
                                     <div onClick={approve} class="btn btn-success col-3 mr-4">
                                         <i class="fa fa-check" aria-hidden="true"></i>&nbsp;&nbsp;Approve
                                     </div>
                                     }
-                                    {(taskClicked.status=="Rescheduled")&&
+                                    {(status=="Rescheduled")&&
                                     <div onClick={reject} class="btn btn-danger col-3 mr-4">
                                         <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Reject
                                     </div>
                                     }
-                                    {((taskClicked.status=="Pending")||(taskClicked.status=="Approved"))&&
+                                    {((status=="Pending")||(status=="Approved"))&&
                                     <div onClick={cancel} class="btn btn-danger col-3 mr-4">
                                         <i class="fa fa-times" aria-hidden="true"></i>&nbsp;&nbsp;Cancel
                                     </div>

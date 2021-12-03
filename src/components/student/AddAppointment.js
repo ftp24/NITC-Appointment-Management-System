@@ -57,7 +57,13 @@ function AddAppointment({user}) {
 		const data = await response.json();
 		console.log("data received",data)
 
-		// history.goBack();
+		if('message' in data && data.message=="Appointment Requested")
+		{
+			history.goBack();
+		}
+		else {
+			alert("Please fill the details correctly")
+		}
 
 	}
 
@@ -87,7 +93,6 @@ function AddAppointment({user}) {
 	            								))}
 											</select>
 										</div>
-
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
