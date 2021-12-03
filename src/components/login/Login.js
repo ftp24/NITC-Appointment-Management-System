@@ -3,6 +3,7 @@ import { useState,useEffect } from 'react'
 import { useHistory } from 'react-router-dom';
 import './Login.css';
 
+//This component checks the user credentials and logs the user into the web application
 const Login= ({user,setUser}) => {
 	const history = useHistory();
 	const [showPassWarning, setShowPassWarning] = useState(false);
@@ -31,7 +32,7 @@ const Login= ({user,setUser}) => {
 	};
 
 
-
+	//When the sign-in button is clicked, it calls the function to verify user details from the database
 	function onClick(event){
 		event.preventDefault()
 		if(valueEmail===''|| valuePassword==='')
@@ -43,6 +44,8 @@ const Login= ({user,setUser}) => {
 			Login_db();
 		}
 	}
+
+	//verifies user details from the database and signs the user in
 	async function Login_db() {
 		var request={'u_id':valueEmail,'pwd':valuePassword,'type':valueType}
 		console.log("request: ",request)
@@ -61,14 +64,16 @@ const Login= ({user,setUser}) => {
 			'type':valueType,
 			'username':data.uname
 		}
+		//message is returned when there is an error
 		if (!('message' in data))
 		{
+			//stores the user details in local storage to maintain the login verification
 			localStorage.setItem('user', JSON.stringify(userdetails));
 			setUser(userdetails);
 
 			setInvalidPassword(false);
 			setInvalidEmail(false);
-
+			//redirects the user to their respective home pages if login details are correct
 			if(data.type=='admin')
 				history.push('/admin-appointments')
 			else if(data.type=='faculty')
@@ -78,6 +83,7 @@ const Login= ({user,setUser}) => {
 			else
 				console.log("Type error")
 		}
+		//gives an alert that the wrong password/email was entered
 		else if(data.message=='Incorrect password')
 		{
 			// alert('Incorrect Password!')

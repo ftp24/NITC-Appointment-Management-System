@@ -1,6 +1,7 @@
 import { Link, useHistory } from "react-router-dom"
 import { useState, useEffect } from "react";
 
+	//This component enables the navbar for all users and the login page
 export default function Navbar({user,setUser}) {
   const history=useHistory();
 
@@ -9,6 +10,7 @@ useEffect(()=>{
 	{
 	}
 },[])
+	//on logout, removes the user details from local storage
   function logout(){
     window.localStorage.removeItem('user')
 	setUser()

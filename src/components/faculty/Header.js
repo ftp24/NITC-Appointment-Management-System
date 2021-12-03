@@ -1,5 +1,5 @@
 import PropTypes from 'prop-types'
-
+//used to define the style of the header for the card
 const Header = ({ title }) => {
     return (
         <header>

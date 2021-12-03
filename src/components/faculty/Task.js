@@ -1,5 +1,5 @@
 import { useHistory } from "react-router-dom";
-
+//renders each appointment as a card with details 
 const Task = ({task}) => {
 
     return (

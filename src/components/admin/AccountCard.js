@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 
+//This component is used as the card to display the user accounts when searched by the admin
 const AccountCard = ({account}) => {
 	const [show,setShow] = useState(true)
 	const [del,setDel] = useState(false)
 
+	//This is called when an account is searched to hide or show the 'user found' and 'user deleted' messages
 	useEffect(() => {
 	    setShow(true)
 		console.log("show became",show)
@@ -11,11 +13,13 @@ const AccountCard = ({account}) => {
 		console.log("del became",del)
 	}, [account])
 
+	//This is called when the delete button is clicked to call the API function to delete the account
 	function DeleteAccount(e)
 	{
 		e.preventDefault()
 		delete_acc(account.u_id);
 	}
+	//This is the API function which deleted the account from the database
 	async function delete_acc(u_id) {
 		// POST request using fetch with async/await
 		let request={"uid":u_id}
@@ -34,6 +38,7 @@ const AccountCard = ({account}) => {
 
     return (
 		<div>
+			{/*the show state hides or shows the card depending on whether the user ID entered is correct*/}
 	        {show&&<div className = 'card task'>
 				<div className="row">
 					<div className="col-12">
@@ -56,7 +61,7 @@ const AccountCard = ({account}) => {
 					</div>
 				</div>
 			</div>}
-
+			{/*Below, the show and del states will hide or show the messages*/}
 			{(!show)&&<div className="row justify-content-center">
 			{(del)&&<h3>Account Deleted</h3>}
 				</div>}

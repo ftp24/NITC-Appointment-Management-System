@@ -3,12 +3,15 @@ import {useEffect,useState} from 'react'
 import { Link } from 'react-router-dom';
 import './faculty.css'
 
+//Allows the faculty to view the appointments in a particular month in a calendar view
 function FacultyScheduleMonth({user}) {
 
 	const[monthName,setMonthName]=useState("January")
 	const [apps,setApps]=useState([[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[]]]);
 	const [month,setMonth]=useState(1)
 	const [year,setYear]=useState('2021')
+
+	
 	function shorten(str)
 	{
 		console.log("str",str)
@@ -26,7 +29,7 @@ function FacultyScheduleMonth({user}) {
 		e.preventDefault();
 		setMonth(document.getElementById('monthInput').value)
 		getApptsByMonth(month,year)
-		
+
 	}
 
 	async function getApptsByMonth(month,year)
@@ -142,7 +145,7 @@ function FacultyScheduleMonth({user}) {
 		</tr>
 	</thead>
 	<tbody>
-		
+
 		{apps.map((week)=>(
 		<tr>
 			<div className="d-flex flex-row">{week.map(day=>(
@@ -153,7 +156,7 @@ function FacultyScheduleMonth({user}) {
 				</td>))}
 			</div>
 		</tr>))}
-		
+
 	</tbody>
 </table>
 </div>

@@ -4,11 +4,12 @@ import { Link } from "react-router-dom"
 import Task from './Task'
 import './faculty.css'
 
-
+//Allows the faculty to view the appointments in a particular day
 function FacultyScheduleDay({user}) {
 
 	const [tasks, setTasks] = useState([])
 
+	//is called when the button is clicked and calls the API functioon to fetch the appointments of given date to the particular faculty
 	function checkDate(e)
 	{
 		e.preventDefault();
@@ -20,6 +21,7 @@ function FacultyScheduleDay({user}) {
 		checkDate_db(dateid)
 	}
 
+	// fetches the appointments of the given date from the database
 	async function checkDate_db(dateid) {
 		var request=dateid
 		console.log("request: ",request)
@@ -33,8 +35,10 @@ function FacultyScheduleDay({user}) {
 		}).then(response=>response.json())
 		.then(data=>{
 			console.log("data",data)
+			//if there is message in data, it means an error
 		if (!('message' in data))
 		{
+			//setting tasks to render the appointment card component
 			setTasks(data);
 		}
 		else
@@ -43,7 +47,7 @@ function FacultyScheduleDay({user}) {
 		}
 		console.log("tasks",tasks)
 	})
-		
+
 	}
 
     return (
@@ -66,6 +70,7 @@ function FacultyScheduleDay({user}) {
 			</div>
 			<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
+					{/*maps the task to the respective link and card components*/}
 					{(tasks.length>0)&&tasks.map((task)=>(<div>{task.status==3?
 	 			  <Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.aptId}><Task key={task.aptId} task={task}/> </Link>:(tasks.length==0)&&<h4 style={{'text-align':'center'}}>No Appointments Scheduled on this day.</h4>}</div>))}
 					{(tasks.length==0)&&<h4 style={{'text-align':'center'}}>No Appointments Scheduled on this day.</h4>}
