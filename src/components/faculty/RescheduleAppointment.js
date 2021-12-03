@@ -2,23 +2,28 @@ import React from 'react'
 import {useEffect,useState} from 'react'
 import { useParams, useHistory } from "react-router-dom";
 
+//Allows the faculty to request a reschedule for an appointment
 function RescheduleAppointment({user}) {
+
+	// This is used to get the appointment id from the url parameter
 	let  {id}  = useParams();
 	let history=useHistory();
 
+	//When the page loads, the appointment details for a single appointment are fetched from the database
 	useEffect(() => {
 		getDetails(id)
 	    }, [id]);
 
 	const [prefilled,setPrefilled]=useState(
 	{
-		title:"", 
+		title:"",
 		description:"",
 		fac_name:"",
 		date:"",
 		time:"",
 	});
-	
+
+	//fetches the details from the database given an appointment_id
 	async function getDetails(id) {
 		var request={'appt_id':id}
 		console.log("request: ",request)
@@ -34,8 +39,10 @@ function RescheduleAppointment({user}) {
 			console.log("data",data)
 		if (!('message' in data))
 		{
+			//message is returned when there is an error
+			//in case of no error set the state to render the user details as a card
 			setPrefilled({
-				title:data.title, 
+				title:data.title,
 				description:data.decription,
 				fac_name:data.fac_name,
 				date:data.date_scheduled,
@@ -44,7 +51,7 @@ function RescheduleAppointment({user}) {
 		}
 	})
 }
-
+	//is called on the button click and submits the reschedule request details
 	function addSubmit(e)
 	{
 		e.preventDefault();
@@ -57,6 +64,7 @@ function RescheduleAppointment({user}) {
 		};
 		reschedule(request)
 	}
+	//sends the reschedule request details to the database
 	async function reschedule(request)
 	{
 	console.log("request: ",request)
@@ -70,7 +78,7 @@ function RescheduleAppointment({user}) {
 	})
 	const data = await response.json();
 	console.log("data received",data)
-
+	//redirects to faculty home after sending the data
 	history.push('/faculty-appointments');
 	}
 

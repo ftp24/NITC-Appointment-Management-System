@@ -3,15 +3,18 @@ import { useHistory } from 'react-router-dom';
 import { useEffect, useState } from 'react'
 import moment from 'moment'
 
+//allows user to send an appointment request
 function AddAppointment({user}) {
 
 	let history=useHistory()
 	const [options,setOptions] = useState([]);
 
+	//fetches the list of faculty when the page loads so as to allow student to choose the faculty
 	useEffect(() => {
 	    getFaculty_db()
 	}, [1])
 
+	//fetches the list of the faculty from the database
 	async function getFaculty_db() {
 		// POST request using fetch with async/await
 		let request={}
@@ -27,6 +30,7 @@ function AddAppointment({user}) {
 		setOptions(data)
 	}
 
+	//the function is called on clicking the button to add an appointment request
 	function addSubmit(e)
 	{
 		e.preventDefault();
@@ -43,6 +47,7 @@ function AddAppointment({user}) {
 		addSubmit_db(appointment)
 	}
 
+	// adds an appointment request with details to the database
 	async function addSubmit_db(appointment) {
 		var request=appointment
 		console.log("request: ",request)

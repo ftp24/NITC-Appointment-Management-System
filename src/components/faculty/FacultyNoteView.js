@@ -2,10 +2,13 @@ import React from 'react'
 import { Link, useHistory, useParams } from 'react-router-dom';
 import {useEffect, useState} from 'react'
 
+//Shows all the details of the clicked appointment
 export default function FacultyNoteView() {
+	// This is used to get the appointment id from the url parameter
 	let  {id}  = useParams();
 	let history=useHistory();
-	//call api to fill in the details
+
+	//When the page loads, the appointment details for a single appointment are fetched from the database
 	useEffect(() => {
 		getDetails(id)
 	    }, [id]);
@@ -25,6 +28,7 @@ export default function FacultyNoteView() {
 				console.log("data",data)
 			if (!('message' in data))
 			{
+				//The status's are converted into text to render
 				setTaskClicked(data);
 				if(data.status==1){
 					setStatus("Pending")
@@ -37,11 +41,12 @@ export default function FacultyNoteView() {
 					setStatus("Rescheduled")
 				}
 			}
-		})			
+		})
 		}
 	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
 	const[status,setStatus]=useState("")
 
+	//this is called when the button is clicked to approve an appointment request and update the database
     async function approve()
 	{
 	var request={"appt_id":id}
@@ -59,6 +64,8 @@ export default function FacultyNoteView() {
 
 	history.goBack();
 	}
+
+	//this is called when the button is clicked to reject an appointment request and update the database
 	async function reject()
 	{
 	var request={"appt_id":id}
@@ -76,11 +83,12 @@ export default function FacultyNoteView() {
 
 	history.goBack();
 	}
+
+	//this is called when the button is clicked to request a reschedule an appointment request and update the database
 	async function reschedule()
 	{
 		history.push('/reschedule')
 	}
-
 
     return (
         <div className="row align-items-center justify-content-md-center">
@@ -118,6 +126,7 @@ export default function FacultyNoteView() {
 									</div>
                                     <div className="row mt-3 ml-0 mr-2">
 									<div className="d-flex justify-content-center col-12">
+									{/*shows different buttons according to the current appointment status*/}
                                     {(status=="Pending")&&
                                     <Link to={"/reschedule/"+id} className="btn button col-3 mr-4">
                                         <i className="fa fa-calendar" aria-hidden="true"></i>&nbsp;&nbsp;Reschedule

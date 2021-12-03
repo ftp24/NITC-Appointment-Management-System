@@ -7,15 +7,18 @@ import AdminNoteView from "./AdminNoteView";
 import { Link } from "react-router-dom"
 import { useEffect } from 'react/cjs/react.development';
 
+//home page of admin, shows all the appointments of all the students and faculty
 const AdminAppointments = ({user}) => {
 
 	let history=useHistory()
 	const [tasks, setTasks] = useState([])
 
+	//When the page loads, all the appointments are fetched from the database
 	useEffect(()=>{
 		getAllAppointments()
 	},[])
 
+	//This is used to fetch the appointments of all appointments (students and faculty) from the database
 	async function getAllAppointments() {
 		var request={'u_id':user.id}
 		console.log("request: ",request)
@@ -31,11 +34,13 @@ const AdminAppointments = ({user}) => {
 		console.log("data",data)
 		if (!('message' in data))
 		{
+			//We set the state to render the appointment cards
 			setTasks(data);
 		}
 	}
 	return (
 		<div className = 'container container_box'>
+			{/*Each card is mapped and linked to the correct links*/}
 			<Header/>
 			{tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/admin/apptview/'+task.aptId}><Task key={task.aptId} task={task} user={user}/> </Link>)) :'No pending appointments'}
 

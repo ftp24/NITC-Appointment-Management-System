@@ -19,6 +19,8 @@ import CreateAccount from "./components/admin/CreateAccount"
 import AdminNoteView from "./components/admin/AdminNoteView";
 import UserSearch from "./components/admin/UserSearch";
 
+// This component implements the routing to each page and is used to transfer props between components
+
 const AppWrapper = () => {
 	return (
 		<Router>
@@ -39,6 +41,7 @@ function App() {
 	let facultyPath=['/login','/faculty-appointments','faculty-schedule-day','faculty-schedule-month']
 	let adminPath=['login','/admin-appointments','accounts','create-accounts']
 
+	//pushes un-verified users to login page and verified users to their home pages 
 	if(!!user) //if user is present
 	{
 		if(user.type=='student' && !(studentPath.includes(pathname)))

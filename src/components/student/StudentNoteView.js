@@ -2,8 +2,9 @@ import React from 'react'
 import { useEffect, useState } from 'react';
 import { useParams,useHistory } from "react-router-dom";
 
+//Shows all the details of the clicked appointment
 export default function StudentNoteView() {
-
+	// This is used to get the appointment id from the url parameter
 	let  {id}  = useParams();
 	let history=useHistory();
 	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
@@ -11,7 +12,7 @@ export default function StudentNoteView() {
 	const[suggDate,setSuggDate]=useState("")
 	const[suggTime,setSuggTime]=useState("")
 
-	//call api to fill in the details
+	//When the page loads, the appointment details for a single appointment are fetched from the database
 	useEffect(() => {
 		getDetails(id)
 	    }, [id]);
@@ -31,6 +32,7 @@ export default function StudentNoteView() {
 			console.log("data",data)
 		if (!('message' in data))
 		{
+			//The status's are converted into text to render
 			if(data.status==1){
 				setStatus("Pending")
 			}
@@ -49,7 +51,7 @@ export default function StudentNoteView() {
 		}
 	})
 }
-
+	//this is called when the button is clicked to approve an appointment request and update the database
 	async function approve()
 	{
 	var request={"appt_id":id}
@@ -67,6 +69,8 @@ export default function StudentNoteView() {
 
 	history.goBack();
 	}
+
+	//this is called when the button is clicked to reject an appointment request and update the database
 	async function reject()
 	{
 	var request={"appt_id":id}
@@ -84,6 +88,8 @@ export default function StudentNoteView() {
 
 	history.goBack();
 	}
+
+	//this is called when the button is clicked to cancel an appointment request and update the database
 	async function cancel()
 	{
 	var request={'appt_id':id}

@@ -2,15 +2,19 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { useEffect, useState } from 'react'
 
-function AddAppointment({user}) {
+//Adds an account created by the admin for students and faculty
+function CreateAccount({user}) {
 
 	let history=useHistory()
+	//used to set the options for the input of departments
 	const [options,setOptions] = useState([]);
 
+	//When the page loads, all the departments are fetched from the database
 	useEffect(() => {
 	    getDepartments_db()
 	}, [])
 
+	//fetches the departments from database
 	async function getDepartments_db() {
 		// POST request using fetch with async/await
 		let request={}
@@ -23,9 +27,11 @@ function AddAppointment({user}) {
 		})
 		const data = await response.json();
 		console.log("data",data)
+		//the received data is set into the state
 		setOptions(data)
 	}
 
+	//This is called when the create button is clicked to create the new account from the filled-in details
 	function addSubmit(e)
 	{
 		e.preventDefault();
@@ -41,6 +47,7 @@ function AddAppointment({user}) {
 		addSubmit_db(user)
 	}
 
+	//Adds the user to the database
 	async function addSubmit_db(user) {
 		var request=user
 		console.log("request: ",request)
@@ -55,6 +62,7 @@ function AddAppointment({user}) {
 		const data = await response.json();
 		console.log("data received",data)
 
+		// redirects to admin home after adding user
 		history.push('/admin-appointments');
 
 	}
@@ -83,6 +91,7 @@ function AddAppointment({user}) {
 									<div className="col-3">
 										<label htmlFor="inputDepartment">Department</label>
 										<select className="form-control" id="inputDepartment" name="inputDepartment">
+											{/*uses the department list obtained from the database*/}
 											{options.map((option) => (
 												<option value={option.dname}>{option.dname}</option>
 											))}
@@ -117,4 +126,4 @@ function AddAppointment({user}) {
 	)
 }
 
-export default AddAppointment
+export default CreateAccount
