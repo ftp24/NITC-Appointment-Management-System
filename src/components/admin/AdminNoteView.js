@@ -3,7 +3,14 @@ import {useEffect,useState} from 'react'
 import { useParams } from "react-router-dom";
 
 export default function AdminNoteView() {
+
 	let  {id}  = useParams();
+	
+	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
+	const[status,setStatus]=useState("")
+	const[suggDate,setSuggDate]=useState("")
+	const[suggTime,setSuggTime]=useState("")
+
 
 //call api to fill in the details
 	useEffect(() => {
@@ -25,7 +32,6 @@ export default function AdminNoteView() {
 				console.log("data",data)
 			if (!('message' in data))
 			{
-				setTaskClicked(data);
 				if(data.status==1){
 					setStatus("Pending")
 				}
@@ -36,12 +42,14 @@ export default function AdminNoteView() {
 				}else if(data.status==4){
 					setStatus("Rescheduled")
 				}
+				var dateTime=data.suggested_date.split('#')
+				setSuggDate(dateTime[0])
+				setSuggTime(dateTime[1])
+				setTaskClicked(data);
 			}
 		})			
 		}
 
-	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
-	const[status,setStatus]=useState("Pending")
 		
 
     return (
@@ -70,14 +78,37 @@ export default function AdminNoteView() {
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
-											<label for="outputDate">Date</label>
+											<label for="outputDate">{status=="Rescheduled"&&<span>Old </span>}Date</label>
 											<input type="date" className="form-control mb-4" id="outputDate" value={taskClicked.date_scheduled} readOnly/>
 										</div>
 										<div className="col-6">
-										<label for="outputTime">Time</label>
-										<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time_scheduled} readOnly/>
+											<label for="outputTime">{status=="Rescheduled"&&<span>Old </span>}Time</label>
+											<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time_scheduled} readOnly/>
 										</div>
+                                    </div>
+
+									<div className="row mt-3 ml-0 mr-2">
+										{status=="Rescheduled"&&
+										<div className="col-6">
+											<label for="outputDate">Suggested Date</label>
+											<input type="date" className="form-control mb-4" id="outputDate" value={suggDate} readOnly/>
+										</div>
+										}
+										{status=="Rescheduled"&&
+										<div className="col-6">
+											<label for="outputTime">Suggested Time</label>
+											<input type="time" className="form-control mb-4" id="outputTime" value={suggTime} readOnly/>
+										</div>
+										}
 									</div>
+									{status=="Rescheduled"&&
+									<div className="row mt-3 ml-0 mr-2">
+										<div className="col-6">
+											<label for="inputMessage">Faculty Message</label>
+											<textarea rows="3" cols="10" className="form-control mb-4" id="inputMessage" value={taskClicked.faculty_message} readonly/>
+										</div>
+                                    </div>
+									}
 									<div className="row mt-3 ml-0 mr-2">
 									<div className="col-6">
 											<label for="outputStatus">Status</label>

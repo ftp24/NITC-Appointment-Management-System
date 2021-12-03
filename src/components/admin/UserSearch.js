@@ -3,12 +3,14 @@ import {useEffect,useState} from 'react'
 import AccountCard from './AccountCard'
 function SearchUser() {
 	const [user,setUser]=useState([]);
+	const [clicked,setClicked]=useState(false);
 
 	function searchID(e)
 	{
 		e.preventDefault();
 		let u_id=(document.getElementById('inputID')).value
 		u_id&&searchID_db(u_id)
+		setClicked(true)
 		// setUser([{id:((document.getElementById('inputID')).value),name:"Jesvin Sebastian",email:"jesvin_b190700cs@nitc.ac.in",phone:"12345678",department:"CSE"}]);
 	}
 	async function searchID_db(u_id) {
@@ -20,11 +22,17 @@ function SearchUser() {
 				'Content-type': 'application/json' // The type of data you're sending
 			},
 			body: JSON.stringify(request) // The data
+		}).then(response=>response.json())
+		.then(data=>{
+			if(!("message" in data)){
+				setUser([data]);
+				console.log("data",data)
+			}else{
+				console.log(data.message)
+				setUser([]);
+
+			}
 		})
-		const data = await response.json();
-		setUser([data]);
-		console.log("data",data)
-		console.log("user",user)
 	}
 
     return (
@@ -54,7 +62,7 @@ function SearchUser() {
 					))}
 				</div>
 				<div className="col-4 align-self-center">
-				   {!user&&(user.length==0)&&<h3>No user with that ID</h3>}
+				   {(clicked)&&(user.length==0)&&<h3>No user with that ID</h3>}
 			   </div>
 		   </div>
 		</div>

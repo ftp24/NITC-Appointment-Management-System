@@ -30,10 +30,10 @@ function FacultyScheduleDay({user}) {
 				'Content-type': 'application/json' // The type of data you're sending
 			},
 			body: JSON.stringify(request) // The data
-		})
-		const data = await response.json();
-		console.log("data",data)
-		if (!('message2' in data))
+		}).then(response=>response.json())
+		.then(data=>{
+			console.log("data",data)
+		if (!('message' in data))
 		{
 			setTasks(data);
 		}
@@ -42,6 +42,8 @@ function FacultyScheduleDay({user}) {
 			setTasks([]);
 		}
 		console.log("tasks",tasks)
+	})
+		
 	}
 
     return (
@@ -64,8 +66,8 @@ function FacultyScheduleDay({user}) {
 			</div>
 			<div className="row align-items-center justify-content-md-center">
 				<div className="col-10 mt-5">
-					{(tasks.length>0)&&tasks.map((task)=>(<div>{task.status=="Approved"&&
-	 			  <Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.aptId}><Task key={task.aptId} task={task}/> </Link>}</div>))}
+					{(tasks.length>0)&&tasks.map((task)=>(<div>{task.status==3?
+	 			  <Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.aptId}><Task key={task.aptId} task={task}/> </Link>:(tasks.length==0)&&<h4 style={{'text-align':'center'}}>No Appointments Scheduled on this day.</h4>}</div>))}
 					{(tasks.length==0)&&<h4 style={{'text-align':'center'}}>No Appointments Scheduled on this day.</h4>}
 				</div>
 			</div>

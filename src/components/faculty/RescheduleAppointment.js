@@ -1,33 +1,77 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 
-function RescheduleAppointment() {
+function RescheduleAppointment({user}) {
 	let  {id}  = useParams();
+	let history=useHistory();
+
+	useEffect(() => {
+		getDetails(id)
+	    }, [id]);
 
 	const [prefilled,setPrefilled]=useState(
 	{
-		title:"hm", //assumed to get from the API
-		description:"hm",
-		fac_name:"mango",
-		date:"2022-11-01",
-		time:"15:31",
+		title:"", 
+		description:"",
+		fac_name:"",
+		date:"",
+		time:"",
 	});
-
+	
+	async function getDetails(id) {
+		var request={'appt_id':id}
+		console.log("request: ",request)
+		// POST request using fetch with async/await
+		const response = await fetch('http://localhost:5000/get_appt', {
+			method: 'POST',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		}).then(response => response.json())
+		.then(data=>{
+			console.log("data",data)
+		if (!('message' in data))
+		{
+			setPrefilled({
+				title:data.title, 
+				description:data.decription,
+				fac_name:data.fac_name,
+				date:data.date_scheduled,
+				time:data.time_scheduled,
+			});
+		}
+	})
+}
 
 	function addSubmit(e)
 	{
 		e.preventDefault();
-		let appointment={
-			Title:(document.getElementById('inputTitle')).value,
-			Description:(document.getElementById('inputDescription')).value,
-			Faculty:(document.getElementById('inputFaculty')).value,
-			Date:(document.getElementById('inputDate')).value,
-			Time:(document.getElementById('inputTime')).value,
-			Message:(document.getElementById('inputMessage')).value,
+		let request={
+			"u_id":user.id,
+			"apt_id":id,
+			"suggested_date":(document.getElementById('inputDate')).value,
+			"suggested_time":(document.getElementById('inputTime')).value,
+			"fac_msg":(document.getElementById('inputMessage')).value,
 		};
-		console.log(appointment);
+		reschedule(request)
+	}
+	async function reschedule(request)
+	{
+	console.log("request: ",request)
+	// POST request using fetch with async/await
+	const response = await fetch('http://localhost:5000/reschedule', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json' // The type of data you're sending
+		},
+		body: JSON.stringify(request) // The data
+	})
+	const data = await response.json();
+	console.log("data received",data)
 
+	history.push('/faculty-appointments');
 	}
 
     return (

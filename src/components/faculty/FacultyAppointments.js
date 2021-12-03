@@ -36,7 +36,7 @@ const FacultyAppointments = ({user}) => {
       return (
         <div className = 'container container_box'>
           <Header/>
-          {tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.id}><Task key={task.id} task={task}/> </Link>)) :'No pending appointments'}
+          {tasks.length > 0 ? tasks.map((task) => (<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+task.aptId}><Task key={task.aptId} task={task}/> </Link>)) :'No pending appointments'}
 
         </div>
       )

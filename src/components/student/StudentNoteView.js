@@ -7,7 +7,9 @@ export default function StudentNoteView() {
 	let  {id}  = useParams();
 	let history=useHistory();
 	const[taskClicked,setTaskClicked]=useState({"appointment_id":"","status":"","date_created":"","date_scheduled":"","time_scheduled":"","title":"","decription":"","suggested_date":"","faculty_message":"","stu_name":"","fac_name":""})
-	const[status,setStatus]=useState("pending")
+	const[status,setStatus]=useState("")
+	const[suggDate,setSuggDate]=useState("")
+	const[suggTime,setSuggTime]=useState("")
 
 	//call api to fill in the details
 	useEffect(() => {
@@ -39,6 +41,9 @@ export default function StudentNoteView() {
 			}else if(data.status==4){
 				setStatus("Rescheduled")
 			}
+			var dateTime=data.suggested_date.split('#')
+			setSuggDate(dateTime[0])
+			setSuggTime(dateTime[1])
 			setTaskClicked(data);
 			console.log("TaskClicked=",data)
 		}
@@ -60,7 +65,7 @@ export default function StudentNoteView() {
 	const data = await response.json();
 	console.log("data received",data)
 
-	// history.goBack();
+	history.goBack();
 	}
 	async function reject()
 	{
@@ -77,7 +82,7 @@ export default function StudentNoteView() {
 	const data = await response.json();
 	console.log("data received",data)
 
-	// history.goBack();
+	history.goBack();
 	}
 	async function cancel()
 	{
@@ -118,24 +123,45 @@ export default function StudentNoteView() {
 											<label for="outputFaculty">Faculty</label>
 										<input className="form-control  mb-4" id="outputFaculty" name="outputFaculty" value={taskClicked.fac_name} readOnly/>
 										</div>
+										<div className="col-6">
+											<label for="outputStatus">Status</label>
+											<input type="text" className="form-control mb-1" id="outputStatus" value={status} readOnly/>
+										</div>
 									</div>
 									<div className="row mt-3 ml-0 mr-2">
 										<div className="col-6">
-											<label for="outputDate">Date</label>
+											<label for="outputDate">{status=="Rescheduled"&&<span>Old </span>}Date</label>
 											<input type="date" className="form-control mb-4" id="outputDate" value={taskClicked.date_scheduled} readOnly/>
 										</div>
 										<div className="col-6">
-										<label for="outputTime">Time</label>
-										<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time_scheduled} readOnly/>
+											<label for="outputTime">{status=="Rescheduled"&&<span>Old </span>}Time</label>
+											<input type="time" className="form-control mb-4" id="outputTime" value={taskClicked.time_scheduled} readOnly/>
 										</div>
-									</div>
+                                    </div>
+
 									<div className="row mt-3 ml-0 mr-2">
-									<div className="col-6">
-											<label for="outputStatus">Status</label>
-									<input type="text" className="form-control mb-1" id="outputStatus" value={status} readOnly/>
+										{status=="Rescheduled"&&
+										<div className="col-6">
+											<label for="outputDate">Suggested Date</label>
+											<input type="date" className="form-control mb-4" id="outputDate" value={suggDate} readOnly/>
+										</div>
+										}
+										{status=="Rescheduled"&&
+										<div className="col-6">
+											<label for="outputTime">Suggested Time</label>
+											<input type="time" className="form-control mb-4" id="outputTime" value={suggTime} readOnly/>
+										</div>
+										}
+									</div>
+									{status=="Rescheduled"&&
+									<div className="row mt-3 ml-0 mr-2">
+										<div className="col-6">
+											<label for="inputMessage">Faculty Message</label>
+											<textarea rows="3" cols="10" className="form-control mb-4" id="inputMessage" value={taskClicked.faculty_message} readonly/>
+										</div>
                                     </div>
-                                    </div>
-                                    <div className="row mt-3 ml-0 mr-2">
+									}
+									<div className="row mt-3 ml-0 mr-2">
 									<div className="d-flex justify-content-center col-12">
                                     {(status=="Rescheduled")&&
                                     <div onClick={approve} class="btn btn-success col-3 mr-4">

@@ -1,14 +1,22 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
+import { Link } from 'react-router-dom';
 import './faculty.css'
 
-function FacultyScheduleMonth() {
+function FacultyScheduleMonth({user}) {
 
+	const[monthName,setMonthName]=useState("January")
 	const [apps,setApps]=useState([[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[]]]);
-	const [month,setMonth]=useState()
+	const [month,setMonth]=useState(1)
+	const [year,setYear]=useState('2021')
 	function shorten(str)
 	{
-		return str.slice(0,8);
+		console.log("str",str)
+		let length=str.length
+		if(length<8)
+			return str
+		else
+			return str.slice(0,8);
 	}
 	useEffect(()=>{
 		console.log(month)
@@ -17,39 +25,72 @@ function FacultyScheduleMonth() {
 	{
 		e.preventDefault();
 		setMonth(document.getElementById('monthInput').value)
-		let ans=[[[],[],[],[],[],[],[]],[[],[],[{
-			AppointmentID:1,
-			Title:"Request to marry your daughter",
-			Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"Joseph Mani Jacob Mani",
-			RollNo:"B190529CS",
-			Status:"Pending"
-		},{
-			AppointmentID:2,
-			Title:"Request to marry your daughter",
-			Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"Naveen SD",
-			RollNo:"B190696CS",
-			Status:"Pending"
-		},{
-			AppointmentID:2,
-			Title:"Request to marry your daughter",
-			Description:"Dear sir, I love your daughter very much. I would like to ask for her hand in marriage. I would like to officially propose marriage to your daughter before you. Please allow me to meet you.",
-			Faculty:"Sakthivel",
-			Date:"2021-12-21",
-			Time:"09:30",
-			Student:"Jesvin Sebastian",
-			RollNo:"B190696CS",
-			Status:"Pending"
-		}],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[],[],[],[],[],[]],[[],[]]];
-		setApps(ans);
-		ans.map(week=>(week.map(day=>(day.map(appt=>console.log(appt))))))
+		getApptsByMonth(month,year)
+		
+	}
+
+	async function getApptsByMonth(month,year)
+	{
+	var request={"fac_id":user.id,"month":month,"year":year}
+	console.log("request: ",request)
+	// POST request using fetch with async/await
+	const response = await fetch('http://localhost:5000/apt_by_month', {
+		method: 'POST',
+		headers: {
+			'Content-type': 'application/json' // The type of data you're sending
+		},
+		body: JSON.stringify(request) // The data
+	})
+	const data = await response.json();
+	console.log("data received",data)
+	setApps(data)
+
+	// history.goBack();
+	}
+	function yearOnChange(e)
+	{
+		setYear(e.target.value)
+	}
+	function monthOnChange(e)
+	{
+		var temp=e.target.value
+		setMonth(temp)
+		if(temp==1){
+			setMonthName("January")
+		}
+		else if(temp==2){
+			setMonthName("February")
+		}
+		else if(temp==3){
+			setMonthName("March")
+		}
+		else if(temp==4){
+			setMonthName("April")
+		}
+		else if(temp==5){
+			setMonthName("May")
+		}
+		else if(temp==6){
+			setMonthName("June")
+		}
+		else if(temp==7){
+			setMonthName("July")
+		}
+		else if(temp==8){
+			setMonthName("August")
+		}
+		else if(temp==9){
+			setMonthName("September")
+		}
+		else if(temp==10){
+			setMonthName("October")
+		}
+		else if(temp==11){
+			setMonthName("November")
+		}
+		else if(temp==12){
+			setMonthName("December")
+		}
 	}
 
     return (
@@ -63,14 +104,24 @@ function FacultyScheduleMonth() {
 								<div className="form-group row">
 									<div className="col-6">
 										<label htmlFor="months">Choose Month:</label>&nbsp;&nbsp;
-										<input list="months" name="monthInput" id="monthInput"/>
-										<datalist id="months">
-											<option value="January"/>
-											<option value="February"/>
-											<option value="March"/>
-											<option value="April"/>
-											<option value="December"/>
-										</datalist>
+										<select className="form-control" name="monthInput" id="monthInput" onChange={monthOnChange}>
+											<option value="1">January</option>
+											<option value="2">February</option>
+											<option value="3">March</option>
+											<option value="4">April</option>
+											<option value="5">May</option>
+											<option value="6">June</option>
+											<option value="7">July</option>
+											<option value="8">August</option>
+											<option value="9">September</option>
+											<option value="10">October</option>
+											<option value="11">November</option>
+											<option value="12">December</option>
+										</select>
+									</div>
+									<div className="col-6">
+									<label htmlFor="year">Choose Year:</label>&nbsp;&nbsp;
+									<input id="year" className="form-control" type="number" min="1900" max="2099" step="1" value="2021" onChange={yearOnChange}/>
 									</div>
 									<div className="col-4 offset-md-2 ml-3 mt-4">
 										<button type="submit" className="button btn" onClick={checkMonth}>Submit</button>
@@ -87,7 +138,7 @@ function FacultyScheduleMonth() {
 <table class="table table-dark table-bordered">
 	<thead>
 		<tr>
-			<th scope="col" className="bg-primary">{month}</th>
+			<th scope="col" className="bg-primary">{monthName}</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -96,7 +147,9 @@ function FacultyScheduleMonth() {
 		<tr>
 			<div className="d-flex flex-row">{week.map(day=>(
 				<td className="d-flex p-2 cell">{day.map(appt=>(
-					<div className="bg-primary apptheader" key={apps.AppointmentID}>{shorten(appt.Student)}</div>))}
+					<Link  style={{ textDecoration: 'none' ,color:'inherit'}} to={'/faculty/apptview/'+appt.appointment_id}>
+						<div className="bg-primary apptheader" key={appt.appointment_id}>{shorten(appt.stu_name)}</div>
+					</Link> ))}
 				</td>))}
 			</div>
 		</tr>))}

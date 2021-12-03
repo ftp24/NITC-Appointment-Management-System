@@ -2,19 +2,35 @@ import { useState, useEffect } from 'react'
 
 const AccountCard = ({account}) => {
 	const [show,setShow] = useState(true)
+	const [del,setDel] = useState(false)
 
 	useEffect(() => {
 	    setShow(true)
+		console.log("show became",show)
+		setDel(false)
+		console.log("del became",del)
 	}, [account])
 
 	function DeleteAccount(e)
 	{
 		e.preventDefault()
-		console.log(account.u_id)
-
+		delete_acc(account.u_id);
+	}
+	async function delete_acc(u_id) {
+		// POST request using fetch with async/await
+		let request={"uid":u_id}
+		const response = await fetch('http://localhost:5000/delete_acc', {
+			method: 'DELETE',
+			headers: {
+				'Content-type': 'application/json' // The type of data you're sending
+			},
+			body: JSON.stringify(request) // The data
+		})
+		const data = await response.json();
+		console.log("data",data)
+		setDel(true)
 		setShow(false)
 	}
-
 
     return (
 		<div>
@@ -42,8 +58,9 @@ const AccountCard = ({account}) => {
 			</div>}
 
 			{(!show)&&<div className="row justify-content-center">
-				<h3>Account Deleted</h3>
+			{(del)&&<h3>Account Deleted</h3>}
 				</div>}
+				{(!show)&&(!del)&&<h3>No user found</h3>}
 		</div>
     )
 }

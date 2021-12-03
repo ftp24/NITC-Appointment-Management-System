@@ -24,7 +24,7 @@ const Login= ({user,setUser}) => {
 		setShowPassWarning(false)
 	};
 
-	const [valueType, setValueType] = useState('');
+	const [valueType, setValueType] = useState('student');
 
 	const handleChangeType = (event) => {
 		setValueType(event.target.value);
